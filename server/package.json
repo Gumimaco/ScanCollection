@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "axios": "^0.27.2",
+    "cors": "^2.8.5",
+    "dom-parser": "^0.1.6",
+    "express": "^4.18.1",
+    "mysql": "^2.18.1",
+    "node-horseman": "^3.3.0",
+    "puppeteer": "github:GoogleChrome/puppeteer"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.16",
+    "zombie": "^6.1.4"
+  }
+}
