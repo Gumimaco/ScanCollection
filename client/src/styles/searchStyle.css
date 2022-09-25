@@ -1,0 +1,25 @@
+:root {
+    --searchHeight: 400px;
+}
+.manhwa-search-group::-webkit-scrollbar {
+    display: none;
+}
+.search-bar-dropdown {
+    max-width: 400px;
+}
+.inputSearch {
+    position: relative;
+    width: 100%;
+    outline: none;
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+.manhwa-search-group {
+    max-height: var(--searchHeight);
+    /* position: absolute; */
+    overflow: auto;
+    padding-left:0px;
+    max-width: auto;
+    margin-top:0px;
+}

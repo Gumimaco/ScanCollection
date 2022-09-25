@@ -1,11 +1,9 @@
 import React from 'react'
 
-function Search() {
+export const ErrorPage: React.FC = () => {
     return (
         <div>
-            
+            <p>ERROR PAGE</p>
         </div>
     )
 }
-
-export default Search

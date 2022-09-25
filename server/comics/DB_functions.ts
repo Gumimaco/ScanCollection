@@ -67,10 +67,29 @@ export const last_manhwa_updated = async (Source: string): Promise<string> => {
     return new Promise ((resolve,reject) => resolve(Name))
 }
 
-export const get_all_manhwas = () => {
-    return new Promise((resolve,reject) => {mySQL.query('SELECT * FROM manhwaDB',(error,response) => {
+export const get_page_sort_by_modified = (page: number) => {
+    // page < 0 ? page = 0 : page
+    return new Promise((resolve,reject) => {mySQL.query(`SELECT * FROM manhwaDB ORDER BY Modified DESC LIMIT ${(page-1)*20},20`,(error,response) => {
         if (error)
             reject(error)
         resolve(response)
     })})
+}
+export const get_all_manhwas = (): Promise<ManhwaT[]> => {
+    return new Promise((resolve,reject) => {
+        mySQL.query(`SELECT * FROM manhwaDB ORDER BY Modified DESC`,(error,response) => {
+            if (error)
+                reject(error)
+            resolve(response)
+        })
+    })
+}
+export const get_all_genres = (): Promise<{Name: string,Source: string,Genre: string}[]> => {
+    return new Promise((resolve,reject) => {
+        mySQL.query(`SELECT * FROM genresDB`,(error,response) => {
+            if (error)
+                reject(error)
+            resolve(response)
+        })
+    })
 }

@@ -21,3 +21,8 @@ export let DefaultManhwa: ManhwaT = {
     Source: 'Default',
     Genres: []
 }
+export type GenreT = {
+    Name: string,
+    Source: string,
+    Genre: string
+}
