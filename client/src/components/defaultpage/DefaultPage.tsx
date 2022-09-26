@@ -3,6 +3,7 @@ import { SearchComponent } from '../searchpage/SearchComponent';
 import { LinearProgress, Input } from '@mui/material';
 import { ManhwaT, GenreT } from '../../../../server/comics/Types';
 import { Manhwashowcase } from './Manhwashowcase';
+import { useNavigate } from "react-router-dom";
 
 import '../../styles/hiddenStyle.css'
 import '../../styles/defaultpageStyle.css'
@@ -13,7 +14,11 @@ export const DefaultPage: React.FC = () => {
     const [Data,setData] = useState<ManhwaT[]>()
     const [SearchData,setSearchData] = useState<{manhwas:ManhwaT[],genres: GenreT[]}>()
     const [Merged_DB,setMergedDB] = useState<ManhwaT[]>()
+    const navigate = useNavigate()
 
+    const change_to_browse = () => {
+        navigate('/manhwa')
+    }
     const loadIncrement = () => {
         setLoading((Loading) => Loading+4);
     }
@@ -39,11 +44,12 @@ export const DefaultPage: React.FC = () => {
     return (
         <div>
             {/* { Loading !== 100 ? <LinearProgress color="secondary" />: null } */}
-            { Data && SearchData ? 
-                <>
-                <SearchComponent manhwa_DB={SearchData}/>
-                <Manhwashowcase data={Data} inc_load={loadIncrement}/>
-                </>
+            { Data ? 
+                <div>
+                    <SearchComponent manhwa_DB={SearchData}/>
+                    <input type="button" value="BROWSE ALL" onClick={change_to_browse}></input>
+                    <Manhwashowcase data={Data} inc_load={loadIncrement}/>
+                </div>
                 : ""
             }
         </div>
