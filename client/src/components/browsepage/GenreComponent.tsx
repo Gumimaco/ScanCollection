@@ -9,7 +9,7 @@ interface GenreComponentProps {
 
 export const GenreComponent: React.FC<GenreComponentProps> = ({genres,genre_list,toggle_show_button,change_params}) => {
     const [alreadySet, setalreadySet] = useState(false)
-    console.log(genres)
+    
     useEffect(() => {
         let set = false
         genres.forEach(genre => {

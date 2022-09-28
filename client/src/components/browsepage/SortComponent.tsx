@@ -9,7 +9,7 @@ interface SortComponentProps {
 
 export const SortComponent: React.FC<SortComponentProps> = ({sort,sort_list,toggle_show_button,change_params}) => {
     const [alreadySet, setalreadySet] = useState(false)
-    console.log("SORT:",sort)
+    
     useEffect(() => {
         let current = document.getElementById(sort) as HTMLInputElement
         if (current !== null && !alreadySet) {

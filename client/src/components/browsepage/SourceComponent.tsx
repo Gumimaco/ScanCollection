@@ -9,7 +9,7 @@ interface SourceComponentProps {
 
 export const SourceComponent: React.FC<SourceComponentProps> = ({source,source_list,toggle_show_button,change_params}) => {
     const [alreadySet, setalreadySet] = useState(false)
-    console.log("SOURCE:",source)
+    
     useEffect(() => {
         let current = document.getElementById(source) as HTMLInputElement
         if (current !== null && !alreadySet) {

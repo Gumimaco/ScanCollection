@@ -1,4 +1,4 @@
-import { get_page_sort_by_modified, get_all_manhwas, get_all_genres } from '../comics/DB_functions'
+import { get_page_sort_by_modified, get_all_manhwas, get_all_genres, THE_QUERY_RESOLVER } from '../comics/DB_functions'
 import { ManhwaT } from '../comics/Types'
 const {Router} = require('express')
 const router = Router()
@@ -20,13 +20,12 @@ router.get('/all',async (req,res) => {
 })
 
 router.get('/?',async (req,res) => {
-    
-    let current_manhwas: ManhwaT;
-    if (typeof(req.query['page']) !== "undefined") {
-        get_page_sort_by_modified(req.query['page'])
-        .then(manhwas => {res.send(manhwas)})
-        .catch(error => {console.log('got error');res.send("ERROR")})
-    }
+
+    console.log('Making query request1');
+    console.log(req.query);
+    await THE_QUERY_RESOLVER(req.query)
+    .then(manhwas => res.send(manhwas))
+    .catch(error => res.send("ERROR FROM QUERY"))
     
 })
 

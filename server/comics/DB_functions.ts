@@ -1,5 +1,6 @@
 var mySQL = require('../mysqlPool.js');
 import axios from "axios";
+import { stringify } from "querystring";
 import { ManhwaT } from "./Types";
 
 export const manhwa_insert = (data: ManhwaT) => {
@@ -92,4 +93,109 @@ export const get_all_genres = (): Promise<{Name: string,Source: string,Genre: st
             resolve(response)
         })
     })
+}
+
+// const INNER_QUERY = "SELECT * FROM
+// 	sys.genresDB
+//     WHERE Genre IN ("Action","Fantasy")
+//     GROUP BY Name,Source
+//     HAVING COUNT(Name) = 2
+// "
+// CONST DRUHY KROK = "
+
+// SELECT m.Name,m.Link,m.Image,m.Rating,m.Chapter,m.Modified,m.Status,m.Source,g.Genre FROM
+// sys.manhwaDB m JOIN INNER_QUERY g
+// on m.Name = g.Name AND m.Source = g.Source
+// "
+
+// const final_query = "
+// SELECT * FROM
+// (
+// SELECT m.Name,m.Link,m.Image,m.Rating,m.Chapter,m.Modified,m.Status,m.Source,g.Genre FROM
+// sys.manhwaDB m JOIN
+// 	(SELECT * FROM
+// 		sys.genresDB
+// 		WHERE Genre IN ("Action","Fantasy")
+// 		GROUP BY Name,Source
+// 		HAVING COUNT(Name) = 2) g
+// on m.Name = g.Name AND m.Source = g.Source
+// ) z WHERE z.Status = "Ongoing" AND CLAUSE = "" ORDER BY "VAR" ASC|DESC LIMIT 0,20
+// "
+
+
+const ALL_WITH_GENRES = 'SELECT m.Name,m.Link,m.Image,m.Rating,m.Chapter,m.Modified,m.Status,m.Source,g.Genre FROM sys.manhwaDB m JOIN sys.genresDB g ON m.Name = g.Name AND m.Source = g.Source;'
+
+const def_object = {
+    Page: '1',
+    Sort: 'Latest',
+    Genre: [ 'Action', 'Fantasy' ],
+    Source: 'Asurascans',
+    Status: 'Ongoing'
+}
+
+const generate_query_for_genres = (Genres: Array<string> | undefined) => {
+    if (typeof(Genres) === "string") {
+        console.log("HERE")
+        return `SELECT * FROM sys.genresDB WHERE Genre IN ("${Genres}") GROUP BY Name,Source HAVING COUNT(Name) = 1`
+    }
+    Genres = Genres?.map(val => {return `"${val}"`})
+    if (typeof(Genres) === 'undefined' || Genres.length === 0 || Genres[0] === "") {
+        return `SELECT * FROM sys.genresDB GROUP BY Name,Source`
+    }
+    return `SELECT * FROM sys.genresDB WHERE Genre IN (${Genres.join(',')}) GROUP BY Name,Source HAVING COUNT(Name) = ${Genres.length}`
+}
+const generate_query_for_where = (queries) => {
+    let params: string[] = []
+    if (typeof(queries['Source']) !== 'undefined' && queries['Source'] !== "") {
+        params.push(`a.Source = \"${queries['Source']}\"`);
+    }
+    if (typeof(queries['Status']) !== 'undefined' && queries['Status'] !== "") {
+        params.push(`a.Status = \"${queries['Status']}\"`);
+    }
+    return params.length === 0 ? "" : `WHERE ${params.join(' AND ')}`
+}
+
+const generate_query_for_order = (order: String | undefined) => {
+
+    if (typeof(order) === 'undefined' || order === 'Latest' || order === "") {
+        return "ORDER BY a.Modified DESC"
+    }
+    switch (order) {
+        case "A-Z":
+            return "ORDER BY a.Name ASC"
+        case "Z-A":
+            return "ORDER BY a.Name DESC"
+        case "Oldest":
+            return "ORDER BY a.Modified ASC"
+        case "Rating":
+            return "ORDER BY a.Rating DESC"
+        default:
+            return ""
+    }
+
+}
+
+const generate_query_for_limit = (page: string | undefined) => {
+    if (typeof(page) === 'undefined' || Number(page) < 1 || page === "") {
+        return "LIMIT 0,20"
+    }
+    return `LIMIT ${(Number(page)-1)*20},20`
+}
+
+export const THE_QUERY_RESOLVER = (QUERY_PARAMS: {Page?: string,Sort?: string,Genre?: Array<string>,Source?:string,Status?: string}): Promise<{}[]> => {
+
+    return new Promise((resolve,reject) => {
+        const genre_filter = generate_query_for_genres(QUERY_PARAMS['Genre']);
+        const where_filter = generate_query_for_where(QUERY_PARAMS);
+        const order_filter = generate_query_for_order(QUERY_PARAMS['Sort']);
+        const limit_filter = generate_query_for_limit(QUERY_PARAMS['Page']);
+        const final_query = `SELECT * FROM (SELECT m.Name,m.Link,m.Image,m.Rating,m.Chapter,m.Modified,m.Status,m.Source,g.Genre FROM sys.manhwaDB m JOIN (${genre_filter}) g ON m.Name = g.Name AND m.Source = g.Source) a ${where_filter} ${order_filter} ${limit_filter}`;
+        console.log(final_query)
+        mySQL.query(final_query,(err,res) => {
+            if (err)
+                reject(err)
+            resolve(res)
+        })
+    })
+
 }

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 interface IPropsManhwa {
     manhwaProp: ManhwaT
-    increment: () => void
+    increment?: () => void
 }
 
 export const ManhwaComponent: React.FC<IPropsManhwa> = ({manhwaProp,increment}) => {
@@ -17,7 +17,7 @@ export const ManhwaComponent: React.FC<IPropsManhwa> = ({manhwaProp,increment}) 
         <div className="manhwa-listing" style={{'padding':'10px','maxWidth':'100%'}}>
             <div style={{'display':'flex','flexDirection':'column'}}>
                 <div>
-                    <img src={Image} height="220px" onLoad={() => {increment()}} referrerPolicy="no-referrer"></img>
+                    <img src={Image} height="220px" referrerPolicy="no-referrer"></img>
                     <div>{Name}</div>
                     <div>Chapter {Chapter}</div>
                 </div>

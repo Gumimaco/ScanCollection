@@ -9,7 +9,7 @@ interface StatusComponentProps {
 
 export const StatusComponent: React.FC<StatusComponentProps> = ({status,status_list,toggle_show_button,change_params}) => {
     const [alreadySet, setalreadySet] = useState(false)
-    console.log("STATUS:",status)
+    
     useEffect(() => {
         let current = document.getElementById(status) as HTMLInputElement
         if (current !== null && !alreadySet) {
