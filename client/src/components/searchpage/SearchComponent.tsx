@@ -61,7 +61,6 @@ export const SearchComponent: React.FC<SearchComponentProps> = ({manhwa_DB}) => 
     }
     return (
         <div>
-            <h1>Search Your Favorite Manhwa</h1>
             <SearchBarDropdown options={manhwaData} onInputChange={onInputChange} reference={searchRef}/>
         </div>
     )

@@ -9,7 +9,7 @@ interface ManhwashowcaseProps {
 
 export const Manhwashowcase: React.FC<ManhwashowcaseProps> = ({data,inc_load}) => {
     return (
-        <div className="last-update-manhwas" style={{'display':'flex','flexDirection':'row','flexWrap':'wrap','maxWidth':'100%'}}>
+        <div className="last-update-manhwas" style={{'display':'flex','flexDirection':'row','flexWrap':'wrap','maxWidth':'100%','justifyContent':'space-between'}}>
             {
                 data.map((manhwa,index) => {
                     return (

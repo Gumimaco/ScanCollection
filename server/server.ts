@@ -13,14 +13,16 @@ const DAY_MS: number = 86400000;
 const app = express();
 app.use(cors());
 
-// const f = async () => {
+const f = async () => {
+    
+    console.log('f Minute Update')
+    await ASURA_COMICS_UPDATE()
+    await FLAME_COMICS_UPDATE()
+    await TOONILY_COMICS_UPDATE() 
+}
+f()
+setInterval(f,HALF_HOUR_MS)
 
-//     console.log('f Minute Update')
-//     await ASURA_COMICS_UPDATE()
-//     await FLAME_COMICS_UPDATE()
-//     await TOONILY_COMICS_UPDATE()
-
-// }
 app.use('/manhwa',manhwa)
 app.listen(PORT,(req,res) => {
     console.log("Listening on port ",PORT)

@@ -17,8 +17,8 @@ export const update = (data) => {
     return new Promise((resolve,reject) => {
         mySQL.query(`UPDATE manhwaDB SET Modified = "${data.Modified}", Chapter = "${data.Chapter}", Rating = "${data.Rating}" WHERE Name="${data.Name}" AND Source="${data.source}";`,(err,res) => {
             if (err)
-                console.log("error while updating", data)
-            console.log("UPDATED")
+                reject(err)
+            resolve('Successfull')
         })
     })
 }

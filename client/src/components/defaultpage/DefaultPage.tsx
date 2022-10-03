@@ -46,8 +46,10 @@ export const DefaultPage: React.FC = () => {
             {/* { Loading !== 100 ? <LinearProgress color="secondary" />: null } */}
             { Data ? 
                 <div>
-                    <SearchComponent manhwa_DB={SearchData}/>
-                    <input type="button" value="BROWSE ALL" onClick={change_to_browse}></input>
+                    <div className="Search-Browse">
+                        <SearchComponent manhwa_DB={SearchData}/>
+                        <input id="button-browse" type="button" value="BROWSE ALL" onClick={change_to_browse}></input>
+                    </div>
                     <Manhwashowcase data={Data} inc_load={loadIncrement}/>
                 </div>
                 : ""

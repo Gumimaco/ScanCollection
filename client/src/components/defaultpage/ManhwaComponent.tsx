@@ -1,7 +1,7 @@
 import React from 'react'
 import { ManhwaT } from '../../../../server/comics/Types';
 import { useNavigate } from "react-router-dom";
-
+import moment from 'moment'
 
 interface IPropsManhwa {
     manhwaProp: ManhwaT
@@ -17,9 +17,10 @@ export const ManhwaComponent: React.FC<IPropsManhwa> = ({manhwaProp,increment}) 
         <div className="manhwa-listing" style={{'padding':'10px','maxWidth':'100%'}}>
             <div style={{'display':'flex','flexDirection':'column'}}>
                 <div>
-                    <img src={Image} height="220px" referrerPolicy="no-referrer"></img>
+                    <img src={Image} height="320px" referrerPolicy="no-referrer"></img>
                     <div>{Name}</div>
                     <div>Chapter {Chapter}</div>
+                    <div>Updated {moment(new Date(Modified)).fromNow()}</div>
                 </div>
             </div>
 

@@ -49,7 +49,7 @@ export const asura_update = async () => {
     await last_manhwa_updated(DefaultManhwa.Source)
     .then(data => LAST_UPDATE_MANHWA_NAME = data)
     .catch(err => console.log("LASTTTTT"))
-
+    
     while (manhwa_not_updated) {
         await axios.get(`https://www.asurascans.com/manga/?page=${page}&status=&type=&order=update`)
         .then(res => { dom = parser.parseFromString(res.data) })
@@ -65,7 +65,6 @@ export const asura_update = async () => {
             await asura_data_update(manhwa)
             .then(update_data => data = update_data)
             .catch(err => console.log("ERROR IN RETRIEVING DATA FROM FUNCTION ASURA_GET_DATA"))
-            // console.log(data.name,"---", LAST_UPDATE_MANHWA_NAME)
 
             if (data.Name === LAST_UPDATE_MANHWA_NAME) {
                 manhwa_not_updated = false
