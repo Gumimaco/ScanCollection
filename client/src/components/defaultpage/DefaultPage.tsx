@@ -50,7 +50,9 @@ export const DefaultPage: React.FC = () => {
                         <SearchComponent manhwa_DB={SearchData}/>
                         <input id="button-browse" type="button" value="BROWSE ALL" onClick={change_to_browse}></input>
                     </div>
-                    <Manhwashowcase data={Data} inc_load={loadIncrement}/>
+                    <div className="main-content">
+                        <Manhwashowcase data={Data} inc_load={loadIncrement}/>
+                    </div>
                 </div>
                 : ""
             }

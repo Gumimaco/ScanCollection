@@ -11,7 +11,7 @@ export const SearchResult: React.FC<SearchResultProps> = ({data}) => {
         <div className="search-manhwa-component" id={Name}>
             <a target="_self" href={Link} style={{'all':'unset'}}>
                 <div style={{'display':'flex','maxWidth':'inherit','width':'100%','boxSizing':'border-box'}}>
-                    <img src={Image} height="100px" referrerPolicy="no-referrer"></img>
+                    <img src={Image} height="133px" referrerPolicy="no-referrer"></img>
                     <div>
                         <div>{Name}</div>
                         <div>Chapter {Chapter}</div>
