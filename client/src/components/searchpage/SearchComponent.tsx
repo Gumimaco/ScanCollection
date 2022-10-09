@@ -1,8 +1,6 @@
 import React from 'react'
-import { useLayoutEffect } from 'react'
 import { useState, useEffect, useRef } from 'react'
 import { ManhwaT,GenreT } from '../../../../server/comics/Types'
-import '../../styles/searchStyle.css'
 import { SearchResult } from './SearchResult'
 
 interface SearchComponentProps {
@@ -25,17 +23,16 @@ const SearchBarDropdown: React.FC<ISearchBarDropdown> = ({options,onInputChange,
                 setisSearchFocused(false)
             }
         })
-        console.log('rerender serachbardropdown')
     })
 
     return (
-        <div className="search-bar-dropdown">
-            <input ref={reference} type="text" placeholder="Search " onChange={onInputChange} className="inputSearch"/>
+        <div className="search-bar-dropdown mt-10 mb-10">
+            <input ref={reference} style={{'caretColor':'transparent'}}type="text" placeholder="Search" onChange={onInputChange} className=" font-sans relative focus:placeholder-transparent inputSearch mb-0 text-4xl border-b-2 w-64 focus:border-amber-500 md:w-96 pointer-events-auto :placeholder-pearl bg-dark-gray text-center :placeholder:text-center border-pearl outline-none"/>
             { isSearchFocused && reference.current.value !== "" ?
-            <ul className="manhwa-search-group">
+            <ul className="manhwa-search-group absolute border-x border-b mt-0 border-pearl flex-column min-h-0 max-h-96 md:max-h-112 w-64 md:w-96 overflow-auto no-scrollbar">
                 {options.map((manhwa,index) => {
                     return (
-                        <li key={index}>
+                        <li key={index} className="flex bg-dark-gray text-pearl border-b w-62 md:w-94 hover:text-amber-500 hover:bg-dark-dark-gray ease-in-out duration-150">
                             <SearchResult data={manhwa}/>
                         </li>
                     )
@@ -60,8 +57,6 @@ export const SearchComponent: React.FC<SearchComponentProps> = ({manhwa_DB}) => 
         console.log(manhwaData)
     }
     return (
-        <div>
-            <SearchBarDropdown options={manhwaData} onInputChange={onInputChange} reference={searchRef}/>
-        </div>
+        <SearchBarDropdown options={manhwaData} onInputChange={onInputChange} reference={searchRef}/>
     )
 }

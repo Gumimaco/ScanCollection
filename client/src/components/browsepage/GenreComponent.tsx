@@ -22,8 +22,9 @@ export const GenreComponent: React.FC<GenreComponentProps> = ({genres,genre_list
         if (set)
             setalreadySet(true)
     })
+    
     return (
-        <div className="Genre">
+        <div className="Genre px-3 bg-amber-500 rounded-md text-dark-gray mx-2">
             <input type="button" value="Genres" onClick={() => toggle_show_button('genres')}/>
             
             <div className="genres-dropdown dropdown">

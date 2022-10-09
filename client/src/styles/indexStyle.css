@@ -1,4 +1,18 @@
 body {
-    margin: 0px;
-    padding: 0px;
+    background-color: #222222;
+    color: #D2D2D2;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer utilities {
+    /* Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
 }

@@ -5,6 +5,7 @@ import { Navbar } from './components/navbar/Navbar';
 import { DefaultPage } from './components/defaultpage/DefaultPage';
 import { BrowsePage } from './components/browsepage/BrowsePage';
 import { ErrorPage } from './components/errorpage/ErrorPage';
+import { NavbarDefault } from './components/navbar/NavbarDefault';
 
 const axios = require('axios')
 
@@ -21,10 +22,10 @@ const App: React.FC = () => {
         .catch(error => console.log(error))
     }, [])
     return (
-        <div className="App">
+        <div className="App bg-dark-gray h-max">
             <DBContext.Provider value={manhwaDB}>
                 <Routes>
-                    <Route path="/" element={<DefaultPage/>}/>
+                    <Route path="/" element={<><NavbarDefault/><DefaultPage/></>}/>
                     <Route element={<Navbar/>}>
                         <Route path="manhwa/*" element={<BrowsePage/>}/>
                         <Route path="*" element={<ErrorPage/>}/>

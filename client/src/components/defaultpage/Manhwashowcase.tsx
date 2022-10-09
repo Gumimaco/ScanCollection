@@ -3,18 +3,17 @@ import {ManhwaT} from '../../../../server/comics/Types'
 import { ManhwaComponent } from './ManhwaComponent'
 
 interface ManhwashowcaseProps {
-    data: ManhwaT[],
-    inc_load: () => void,
+    data: ManhwaT[]
 }
 
-export const Manhwashowcase: React.FC<ManhwashowcaseProps> = ({data,inc_load}) => {
+export const Manhwashowcase: React.FC<ManhwashowcaseProps> = ({data}) => {
     return (
-        <div className="last-update-manhwas">
+        <div className="last-update-manhwas list-none flex justify-around mt-6 flex-wrap gap-4 mx-6">
             {
                 data.map((manhwa,index) => {
                     return (
                     <li key={index}>
-                        <ManhwaComponent manhwaProp={manhwa} increment={inc_load}/>
+                        <ManhwaComponent manhwaProp={manhwa}/>
                     </li>
                     )
                 })

@@ -127,15 +127,14 @@ export const BrowsePage: React.FC<BrowsePageProps> = ({}) => {
 
     return (
         <div>
-            WE HERE BIATCH
-            <div style={{'display':'flex'}}>
+            <div className="flex">
                 <GenreComponent genres={params.Genre} genre_list={genre_list} toggle_show_button={toggle_show_button} change_params={change_params}/>
                 <SortComponent sort={params.Sort} sort_list={sort_list} toggle_show_button={toggle_show_button} change_params={change_params}/>
                 <SourceComponent source={params.Source} source_list={source_list} toggle_show_button={toggle_show_button} change_params={change_params}/>
                 <StatusComponent status={params.Status} status_list={status_list} toggle_show_button={toggle_show_button} change_params={change_params}/>
                 <input type="submit" value="Search" onClick={createURLandJUMP}/>
             </div>
-            <div className="Manhwa-listing">
+            <div className="Manhwa-listing list-none flex justify-around mt-6 flex-wrap gap-4 mx-6">
                 {   MANHWAS_TO_DISPLAY ?
                     MANHWAS_TO_DISPLAY.map((manhwa,index) => {
                         return (
@@ -147,7 +146,7 @@ export const BrowsePage: React.FC<BrowsePageProps> = ({}) => {
                     : ""
                 }
             </div>
-            <div className="navigation-buttons" style={{'display':'flex'}}>
+            <div className="navigation-buttons">
                 { MANHWAS_TO_DISPLAY ?
                     <div>
                     {   params.Page > 1 && MANHWAS_TO_DISPLAY.length > 0 ?
