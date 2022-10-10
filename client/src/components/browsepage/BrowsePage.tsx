@@ -127,7 +127,7 @@ export const BrowsePage: React.FC<BrowsePageProps> = ({}) => {
 
     return (
         <div>
-            <div className="flex">
+            <div className="flex mt-4 relative">
                 <GenreComponent genres={params.Genre} genre_list={genre_list} toggle_show_button={toggle_show_button} change_params={change_params}/>
                 <SortComponent sort={params.Sort} sort_list={sort_list} toggle_show_button={toggle_show_button} change_params={change_params}/>
                 <SourceComponent source={params.Source} source_list={source_list} toggle_show_button={toggle_show_button} change_params={change_params}/>
@@ -146,15 +146,15 @@ export const BrowsePage: React.FC<BrowsePageProps> = ({}) => {
                     : ""
                 }
             </div>
-            <div className="navigation-buttons">
+            <div className="navigation-buttons flex justify-center items-center mt-4">
                 { MANHWAS_TO_DISPLAY ?
                     <div>
                     {   params.Page > 1 && MANHWAS_TO_DISPLAY.length > 0 ?
-                            <input type="button" onClick={goBack} value="Previous Page"/>
+                            <input className="py-2 px-4 rounded-md h-12 text-sans text-lg font-italic bg-pearl text-dark-gray hover:bg-amber-500 ease-in-out duration-150" type="button" onClick={goBack} value="Previous Page"/>
                         : ""
                     }
                     { MANHWAS_TO_DISPLAY.length === 20 ?
-                        <input type="button" onClick={goForward} value="Next Page"/>
+                        <input className="py-2 px-4 ml-4 rounded-md h-12 text-sans text-lg font-italic bg-pearl text-dark-gray hover:bg-amber-500 ease-in-out duration-150" type="button" onClick={goForward} value="Next Page"/>
                         : ""
                     }
                     </div>

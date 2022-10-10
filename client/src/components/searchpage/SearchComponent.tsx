@@ -27,7 +27,7 @@ const SearchBarDropdown: React.FC<ISearchBarDropdown> = ({options,onInputChange,
 
     return (
         <div className="search-bar-dropdown mt-10 mb-10">
-            <input ref={reference} style={{'caretColor':'transparent'}}type="text" placeholder="Search" onChange={onInputChange} className=" font-sans relative focus:placeholder-transparent inputSearch mb-0 text-4xl border-b-2 w-64 focus:border-amber-500 md:w-96 pointer-events-auto :placeholder-pearl bg-dark-gray text-center :placeholder:text-center border-pearl outline-none"/>
+            <input ref={reference} style={{'caretColor':'transparent'}}type="text" placeholder="Search" onChange={onInputChange} className=" font-sans relative focus:placeholder-transparent inputSearch mb-0 text-4xl border-b-2 w-64 rounded focus:border-amber-500 md:w-96 pointer-events-auto :placeholder-pearl bg-dark-gray text-center :placeholder:text-center border-pearl outline-none"/>
             { isSearchFocused && reference.current.value !== "" ?
             <ul className="manhwa-search-group absolute border-x border-b mt-0 border-pearl flex-column min-h-0 max-h-96 md:max-h-112 w-64 md:w-96 overflow-auto no-scrollbar">
                 {options.map((manhwa,index) => {

@@ -24,20 +24,24 @@ export const GenreComponent: React.FC<GenreComponentProps> = ({genres,genre_list
     })
     
     return (
-        <div className="Genre px-3 bg-amber-500 rounded-md text-dark-gray mx-2">
-            <input type="button" value="Genres" onClick={() => toggle_show_button('genres')}/>
+        <div className="Genre px-3 rounded-md text-dark-gray mx-2 static">
+            <input className="bg-pearl rounded px-1" type="button" value="Genres" onClick={() => toggle_show_button('genres')}/>
             
             <div className="genres-dropdown dropdown">
+                <div className="bg-pearl dropdown flex w-5/6 flex-wrap my-2">
                 { genre_list.size !== 0 ?
                     Array.from(genre_list).sort().map((genre,index) => { return (
-                            <div key={'genre'+index}>
-                                <input type="checkbox" onClick={event => change_params("Genre",event)} value={genre} id={genre}/>
-                                <label htmlFor={genre}>{genre}</label>
+                        <div key={'genre'+index} className="flex" >
+                                <div className="mx-4 flex justify-center items-center">
+                                    <input type="checkbox" onClick={event => change_params("Genre",event)} value={genre} id={genre}/>
+                                    <label htmlFor={genre}>{genre}</label>
+                                </div>
                             </div>
                         )
                     })
                     : ""
                 }
+                </div>
             </div>
         </div>
     )
