@@ -4,6 +4,7 @@ import { Routes,Route,useNavigate,useSearchParams } from 'react-router-dom'
 import { DBContext } from '../../App';
 import { ManhwaComponent } from '../defaultpage/ManhwaComponent';
 import './browseStyle.css'
+import { Filtercomponent } from './Filtercomponent';
 import { GenreComponent } from './GenreComponent';
 import { SortComponent } from './SortComponent';
 import { SourceComponent } from './SourceComponent';
@@ -31,10 +32,10 @@ interface BrowsePageProps {
 export const BrowsePage: React.FC<BrowsePageProps> = ({}) => {
     const [searchParams] = useSearchParams({});
     const [genre_list, setgenre_list] = useState<Set<string>>(new Set())
-    const [prevOptionOpened,setprevOptionOpened] = useState<DOMTokenList>(null)
     const [params,setparams] = useState<{Page: number,Sort: string,Genre: string[],Source: string,Status: string}>({ Page: 1,Sort: '',Genre: [],Source: '',Status: ''})
     const DB = useContext(DBContext)
     const [MANHWAS_TO_DISPLAY,setMANHWAS_TO_DISPLAY] = useState(null)
+    const [toDisplayFilter,setToDisplayFilter] = useState<string>(null)
     const navigate = useNavigate()
     
     useLayoutEffect(() => {
@@ -63,18 +64,22 @@ export const BrowsePage: React.FC<BrowsePageProps> = ({}) => {
         createURLandJUMP()
     }
     const toggle_show_button = (name: string) => {
-        let current = document.getElementsByClassName(`${name}-dropdown`)[0].classList;
-
-        if (current === prevOptionOpened) {
+        let current = document.getElementsByClassName(`dropdown`)[0].classList;
+        // nothing opened => open,set to current
+        if (toDisplayFilter === null) {
             current.toggle('show')
-            setprevOptionOpened(null)
+            setToDisplayFilter(name)
         } else {
-            if (prevOptionOpened !== null) {
-                prevOptionOpened.toggle('show')
-            } 
-            current.toggle('show')
-            setprevOptionOpened(current)
+            if (toDisplayFilter === name) {
+                current.toggle('show')
+                setToDisplayFilter(null)
+            } else {
+                console.log("changing")
+                setToDisplayFilter(name)
+            }
         }
+        // something opened => 1. IS IT THE CURRENT -> CLOSE, prev = none
+        // 2. Different => change the render
     }
 
     useEffect(() => {
@@ -127,13 +132,15 @@ export const BrowsePage: React.FC<BrowsePageProps> = ({}) => {
 
     return (
         <div>
-            <div className="flex mt-4 relative">
-                <GenreComponent genres={params.Genre} genre_list={genre_list} toggle_show_button={toggle_show_button} change_params={change_params}/>
-                <SortComponent sort={params.Sort} sort_list={sort_list} toggle_show_button={toggle_show_button} change_params={change_params}/>
-                <SourceComponent source={params.Source} source_list={source_list} toggle_show_button={toggle_show_button} change_params={change_params}/>
-                <StatusComponent status={params.Status} status_list={status_list} toggle_show_button={toggle_show_button} change_params={change_params}/>
-                <input type="submit" value="Search" onClick={createURLandJUMP}/>
+            <div className="flex mt-4 relative gap-1">
+                <input className="bg-pearl rounded px-1 text-black" type="button" value="Genres" onClick={() => toggle_show_button('genres')}/>
+                <input className="bg-pearl rounded px-1 text-black" type="button" value="Sort By" onClick={() => toggle_show_button('sort')}/>
+                <input className="bg-pearl rounded px-1 text-black" type="button" value="Source" onClick={() => toggle_show_button('source')}/>
+                <input className="bg-pearl rounded px-1 text-black" type="button" value="Status" onClick={() => toggle_show_button('status')}/>
+                <input className="bg-pearl rounded px-1 text-black" type="submit" value="Search" onClick={createURLandJUMP}/>
             </div>
+            <Filtercomponent genres={params.Genre} genre_list={genre_list} sort={params.Sort} sort_list={sort_list}
+            source={params.Source} source_list={source_list} status={params.Status} status_list={status_list} change_params={change_params} toDisplay={toDisplayFilter}/>
             <div className="Manhwa-listing list-none flex justify-around mt-6 flex-wrap gap-4 mx-6">
                 {   MANHWAS_TO_DISPLAY ?
                     MANHWAS_TO_DISPLAY.map((manhwa,index) => {

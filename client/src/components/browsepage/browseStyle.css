@@ -4,3 +4,6 @@
 .show {
     display:block;
 }
+.button-clicked {
+    @apply bg-amber-500;
+}
