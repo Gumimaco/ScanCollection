@@ -8,7 +8,7 @@ interface ManhwashowcaseProps {
 
 export const Manhwashowcase: React.FC<ManhwashowcaseProps> = ({data}) => {
     return (
-        <div className="last-update-manhwas list-none flex justify-around mt-6 flex-wrap gap-4 mx-6">
+        <div className="last-update-manhwas list-none flex justify-around mt-6 flex-wrap gap-2 mx-6">
             {
                 data.map((manhwa,index) => {
                     return (

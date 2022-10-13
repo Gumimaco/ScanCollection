@@ -22,7 +22,7 @@ export const Filtercomponent: React.FC<FiltercomponentProps> = ({genre_list,genr
                 return <div></div>
             case 'genres':
                 return Array.from(genre_list).sort().map((genre,index) => { return (
-                    <div key={'genre'+index} className="flex" >
+                    <div key={'genre'+index} className="flex w-1/6" >
                             <div className="mx-4 flex justify-center items-center">
                                 <input type="checkbox" onClick={event => change_params("Genre",event)} value={genre} id={genre}/>
                                 <label htmlFor={genre}>{genre}</label>
@@ -33,7 +33,7 @@ export const Filtercomponent: React.FC<FiltercomponentProps> = ({genre_list,genr
             case 'sort':
                 return sort_list.map((value,index) => {
                     return (
-                        <div key={'sort'+index}>
+                        <div key={'sort'+index} className="flex w-1/6">
                             <input type="checkbox" onClick={(button_id) => change_params("Sort",button_id)} value={value} id={value}/>
                             <label htmlFor={value}>{value}</label>
                         </div>
@@ -42,7 +42,7 @@ export const Filtercomponent: React.FC<FiltercomponentProps> = ({genre_list,genr
             case 'source':
                 return source_list.map((value,index) => {
                     return (
-                        <div key={'source'+index}>
+                        <div key={'source'+index} className="flex w-1/6">
                             <input type="checkbox" onClick={(button_id) => change_params("Source",button_id)} value={value} id={value}/>
                             <label htmlFor={value}>{value}</label>
                         </div>
@@ -51,7 +51,7 @@ export const Filtercomponent: React.FC<FiltercomponentProps> = ({genre_list,genr
             case 'status':
                 return status_list.map((value,index) => {
                     return (
-                        <div key={'status'+index}>
+                        <div key={'status'+index} className="flex w-1/6">
                             <input type="checkbox" onClick={(button_id) => change_params("Status",button_id)} value={value} id={value}/>
                             <label htmlFor={value}>{value}</label>
                         </div>
@@ -101,8 +101,10 @@ export const Filtercomponent: React.FC<FiltercomponentProps> = ({genre_list,genr
         }
     }
     return (
-            <div className="bg-pearl dropdown flex w-5/6 flex-wrap my-2 text-black">
+        <div className="flex justify-center items-center w-full">
+            <div className="bg-pearl dropdown flex flex-wrap w-5/6 my-2 max-h-40 rounded overflow-auto text-black justify-between items-center">
                 { render_different_parts() }
             </div>
+        </div>
     )
 }

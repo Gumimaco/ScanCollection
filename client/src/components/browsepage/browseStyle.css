@@ -4,6 +4,13 @@
 .show {
     display:block;
 }
-.button-clicked {
-    @apply bg-amber-500;
+input[type=checkbox] {
+    accent-color: theme('colors.red.500')
+}
+@tailwind components;
+@layer components {
+    .button-clicked {
+        @apply bg-amber-500;
+    }
+    
 }
