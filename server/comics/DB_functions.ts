@@ -51,21 +51,17 @@ export const genre_insert = (Name: string,Source: string,genre: string) => {
 }
 
 
-export const last_manhwa_updated = async (Source: string): Promise<string> => {
-    let Name: string = ''
-    const promise: Promise<string> = new Promise((resolve,reject) => {
+export const last_manhwa_updated = async (Source: string): Promise<ManhwaT | null> => {
+    return new Promise((resolve,reject) => {
         mySQL.query(`SELECT * FROM manhwaDB WHERE Source = '${Source}' ORDER BY Modified DESC;`, (err,res) => {
+            if (err)
+                throw err;
             if (res.length !== 0) {
-                resolve(res[0].Name)
+                resolve(res[0])
             }
-            resolve("")
+            resolve(null)
         })
     })
-    await promise
-    .then(data => { Name = data })
-    .catch(err => console.log("SHIT IS EMPTY?"))
-
-    return new Promise ((resolve,reject) => resolve(Name))
 }
 
 export const get_page_sort_by_modified = (page: number) => {
@@ -93,44 +89,6 @@ export const get_all_genres = (): Promise<{Name: string,Source: string,Genre: st
             resolve(response)
         })
     })
-}
-
-// const INNER_QUERY = "SELECT * FROM
-// 	sys.genresDB
-//     WHERE Genre IN ("Action","Fantasy")
-//     GROUP BY Name,Source
-//     HAVING COUNT(Name) = 2
-// "
-// CONST DRUHY KROK = "
-
-// SELECT m.Name,m.Link,m.Image,m.Rating,m.Chapter,m.Modified,m.Status,m.Source,g.Genre FROM
-// sys.manhwaDB m JOIN INNER_QUERY g
-// on m.Name = g.Name AND m.Source = g.Source
-// "
-
-// const final_query = "
-// SELECT * FROM
-// (
-// SELECT m.Name,m.Link,m.Image,m.Rating,m.Chapter,m.Modified,m.Status,m.Source,g.Genre FROM
-// sys.manhwaDB m JOIN
-// 	(SELECT * FROM
-// 		sys.genresDB
-// 		WHERE Genre IN ("Action","Fantasy")
-// 		GROUP BY Name,Source
-// 		HAVING COUNT(Name) = 2) g
-// on m.Name = g.Name AND m.Source = g.Source
-// ) z WHERE z.Status = "Ongoing" AND CLAUSE = "" ORDER BY "VAR" ASC|DESC LIMIT 0,20
-// "
-
-
-const ALL_WITH_GENRES = 'SELECT m.Name,m.Link,m.Image,m.Rating,m.Chapter,m.Modified,m.Status,m.Source,g.Genre FROM sys.manhwaDB m JOIN sys.genresDB g ON m.Name = g.Name AND m.Source = g.Source;'
-
-const def_object = {
-    Page: '1',
-    Sort: 'Latest',
-    Genre: [ 'Action', 'Fantasy' ],
-    Source: 'Asurascans',
-    Status: 'Ongoing'
 }
 
 const generate_query_for_genres = (Genres: Array<string> | undefined) => {

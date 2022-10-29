@@ -87,15 +87,20 @@ export const toonily_update = async () => {
     let i: number = 0;
     let page: number = 1;
     let manhwa_not_updated: boolean = true;
-    let LAST_UPDATE_MANHWA_NAME: string = "Default";
+    let LAST_UPDATE_MANHWA: any = null;
     let current_date = new Date();
 
     await last_manhwa_updated(DefaultManhwa.Source)
-    .then(res => LAST_UPDATE_MANHWA_NAME = res)
-    .catch(error => console.log('error with last manhwa updated'))
+    .then(data => {
+        if (data !== null) 
+            {
+                LAST_UPDATE_MANHWA = data;
+            }
+        }
+    )
     
     while (manhwa_not_updated) {
-        await axios.get(`https://toonily.com/webtoon-genre/action/page/${page}/?m_orderby=latest`)
+        await axios.get(`https://toonily.com/search/page/${page}/?m_orderby=latest`)
         .then(res => { dom = parser.parseFromString(res.data) })
         .catch(error => console.log(error))
         
@@ -113,7 +118,7 @@ export const toonily_update = async () => {
             .catch(err => console.log("ERROR IN RETRIEVING DATA FROM FUNCTION FLAME_GET_DATA"))
             // console.log(data.name,"---", LAST_UPDATE_MANHWA_NAME)
         
-            if (data.Name === LAST_UPDATE_MANHWA_NAME) {
+            if (LAST_UPDATE_MANHWA !== null && data.Name === LAST_UPDATE_MANHWA.Name && data.Chapter == LAST_UPDATE_MANHWA.Chapter) {
                 manhwa_not_updated = false
                 break;
             }   

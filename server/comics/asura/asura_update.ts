@@ -44,10 +44,16 @@ export const asura_update = async () => {
     let i: number = 0;
     let page: number = 1;
     let manhwa_not_updated: boolean = true;
-    let LAST_UPDATE_MANHWA_NAME: string = "Default";
+    let LAST_UPDATE_MANHWA: any = null;
 
     await last_manhwa_updated(DefaultManhwa.Source)
-    .then(data => LAST_UPDATE_MANHWA_NAME = data)
+    .then(data => {
+        if (data !== null) 
+            {
+                LAST_UPDATE_MANHWA = data;
+            }
+        }
+    )
     .catch(err => console.log("LASTTTTT"))
     
     while (manhwa_not_updated) {
@@ -66,7 +72,7 @@ export const asura_update = async () => {
             .then(update_data => data = update_data)
             .catch(err => console.log("ERROR IN RETRIEVING DATA FROM FUNCTION ASURA_GET_DATA"))
 
-            if (data.Name === LAST_UPDATE_MANHWA_NAME) {
+            if (LAST_UPDATE_MANHWA !== null && data.Name === LAST_UPDATE_MANHWA.Name && data.Chapter == LAST_UPDATE_MANHWA.Chapter) {
                 manhwa_not_updated = false
                 break;
             }
