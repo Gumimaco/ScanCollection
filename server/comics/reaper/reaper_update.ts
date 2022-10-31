@@ -5,34 +5,24 @@ import { last_manhwa_updated, manhwa_update } from '../DB_functions'
 const axios = require('axios')
 
 const reaper_data_update = async (manhwa): Promise<ManhwaT> => {
+    
     let data: ManhwaT = DefaultManhwa;
-    data.Name = manhwa.getElementsByTagName('a')[0].attributes[1].value;
-    data.Link = manhwa.getElementsByTagName('a')[0].attributes[0].value;
-    data.Image = manhwa.getElementsByTagName('img')[0].attributes[0].value;
+    data.Link = manhwa.getElementsByClassName('flex-shrink-0')[0].getElementsByTagName('a')[0].attributes[0].value;
+    data.Name = manhwa.getElementsByClassName('flex-shrink-0')[0].getElementsByTagName('a')[0].getElementsByTagName('img')[0].attributes[2].value;
+    data.Image = manhwa.getElementsByClassName('flex-shrink-0')[0].getElementsByTagName('a')[0].getElementsByTagName('img')[0].attributes[1].value;
 
     let release;
-
-    await axios.get(manhwa.getElementsByTagName('a')[0].attributes[0].value)
+    await axios.get(manhwa.getElementsByClassName('flex-shrink-0')[0].getElementsByTagName('a')[0].attributes[0].value)
     .then(res => release = parser.parseFromString(res.data))
-    .catch(error => console.log("FAILED TO FETCH DATA FROM LINK IN ASURA_DATA_UPDATE"))
+    .catch(error => console.log("FAILED TO FETCH DATA FROM LINK REAPER SCANS"))
     
-    data.Status = release.getElementsByClassName('imptdt')[0].getElementsByTagName('i')[0].innerHTML
-    if (typeof(data.Status) !== 'undefined') {
-        data.Modified = release.getElementsByTagName('time')[1].attributes[1].value;
-        data.Chapter = Number(release.getElementsByClassName('epcurlast')[0].innerHTML.split(' ')[1])
-        data.Rating = Number(release.getElementsByClassName('num')[0].innerHTML);
-        if (isNaN(data.Chapter)) {
-            data.Chapter = 0
-        }
-        if (isNaN(data.Rating)) {
-            data.Rating = 0
-        }
-        if (release.getElementsByClassName('mgen').length) {
-            release.getElementsByClassName('mgen')[0].getElementsByTagName('a').forEach(genre => {
-                data.Genres.push(genre.innerHTML)
-            })
-        }
-    }
+    data.Status = release.getElementsByTagName('dl')[0].getElementsByTagName('div')[1].getElementsByTagName('dd')[0].textContent;
+    
+
+    console.log('Chapter: ', release.getElementsByTagName('ul')[0].getElementsByTagName('p')[0].textContent);
+    console.log('Modified: ', release.getElementsByTagName('ul')[0].getElementsByTagName('p')[1].textContent);
+    data.Modified = release.getElementsByTagName('time')[1].attributes[1].value;
+        
     return new Promise((resolve,reject) => { resolve(data) })
 }
 
@@ -67,9 +57,7 @@ export const reaper_update = async () => {
         manhwas = manhwas[0].getElementsByClassName('transition');
         console.log("MANHWA AMOUNT: ",manhwas.length);
         while (manhwas.length !== i && manhwa_not_updated) {
-            manhwa = manhwas[i].getElementsByClassName('flex-shrink-0')[0].getElementsByTagName('a')[0];
-            console.log(manhwa);
-
+            manhwa = manhwas[i];
             let data: ManhwaT = DefaultManhwa; 
 
             await reaper_data_update(manhwa)
