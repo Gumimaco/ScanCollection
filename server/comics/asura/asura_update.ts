@@ -37,53 +37,56 @@ const asura_data_update = async (manhwa): Promise<ManhwaT> => {
 }
 
 export const asura_update = async () => {
-    DefaultManhwa.Source = 'Asurascans'
-    let dom!: HTMLElement;
-    let manhwa: HTMLElement;
-    let manhwas: HTMLCollectionOf<Element>;
-    let i: number = 0;
-    let page: number = 1;
-    let manhwa_not_updated: boolean = true;
-    let LAST_UPDATE_MANHWA: any = null;
+    return new Promise(async (resolve,reject) => {
+        DefaultManhwa.Source = 'Asurascans'
+        let dom!: HTMLElement;
+        let manhwa: HTMLElement;
+        let manhwas: HTMLCollectionOf<Element>;
+        let i: number = 0;
+        let page: number = 1;
+        let manhwa_not_updated: boolean = true;
+        let LAST_UPDATE_MANHWA: any = null;
 
-    await last_manhwa_updated(DefaultManhwa.Source)
-    .then(data => {
-        if (data !== null) 
-            {
-                LAST_UPDATE_MANHWA = data;
+        await last_manhwa_updated(DefaultManhwa.Source)
+        .then(data => {
+            if (data !== null) 
+                {
+                    LAST_UPDATE_MANHWA = data;
+                }
             }
-        }
-    )
-    .catch(err => console.log("LASTTTTT"))
-    
-    while (manhwa_not_updated) {
-        await axios.get(`https://www.asurascans.com/manga/?page=${page}&status=&type=&order=update`)
-        .then(res => { dom = parser.parseFromString(res.data) })
-        .catch(error => console.log(error))
+        )
+        .catch(err => resolve(true))
         
-        manhwas = dom.getElementsByClassName('bsx');
-        if (manhwas.length === 0)
-            break
-        while (manhwas.length !== i && manhwa_not_updated) {
-            manhwa = parser.parseFromString(manhwas[i].innerHTML);
-            let data: ManhwaT = DefaultManhwa; 
+        while (manhwa_not_updated) {
+            await axios.get(`https://www.asurascans.com/manga/?page=${page}&status=&type=&order=update`)
+            .then(res => { dom = parser.parseFromString(res.data) })
+            .catch(error => reject(error))
+            
+            manhwas = dom.getElementsByClassName('bsx');
+            if (manhwas.length === 0)
+                break
+            while (manhwas.length !== i && manhwa_not_updated) {
+                manhwa = parser.parseFromString(manhwas[i].innerHTML);
+                let data: ManhwaT = DefaultManhwa; 
 
-            await asura_data_update(manhwa)
-            .then(update_data => data = update_data)
-            .catch(err => console.log("ERROR IN RETRIEVING DATA FROM FUNCTION ASURA_GET_DATA"))
+                await asura_data_update(manhwa)
+                .then(update_data => data = update_data)
+                .catch(err => reject(err))
 
-            if (LAST_UPDATE_MANHWA !== null && data.Name === LAST_UPDATE_MANHWA.Name && data.Chapter == LAST_UPDATE_MANHWA.Chapter) {
-                manhwa_not_updated = false
-                break;
+                if (LAST_UPDATE_MANHWA !== null && data.Name === LAST_UPDATE_MANHWA.Name && data.Chapter == LAST_UPDATE_MANHWA.Chapter) {
+                    manhwa_not_updated = false
+                    break;
+                }
+
+                await manhwa_update(data)
+                data.Genres = []
+                i += 1;
             }
 
-            await manhwa_update(data)
-            data.Genres = []
-            i += 1;
+            console.log("ASURA",page,i)
+            i = 0;
+            page += 1;
         }
-
-        console.log("ASURA",page,i)
-        i = 0;
-        page += 1;
-    }
+        resolve(true);
+    })
 }

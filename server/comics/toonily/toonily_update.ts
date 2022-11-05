@@ -80,55 +80,58 @@ const toonily_data_update = async (manhwa,date = new Date()): Promise<ManhwaT> =
 }
 
 export const toonily_update = async () => {
-    DefaultManhwa.Source = 'Toonily'
-    let dom!: HTMLElement;
-    let manhwa: HTMLElement;
-    let manhwas: HTMLCollectionOf<Element>;
-    let i: number = 0;
-    let page: number = 1;
-    let manhwa_not_updated: boolean = true;
-    let LAST_UPDATE_MANHWA: any = null;
-    let current_date = new Date();
+    return new Promise(async (resolve,reject) => {
+        DefaultManhwa.Source = 'Toonily'
+        let dom!: HTMLElement;
+        let manhwa: HTMLElement;
+        let manhwas: HTMLCollectionOf<Element>;
+        let i: number = 0;
+        let page: number = 1;
+        let manhwa_not_updated: boolean = true;
+        let LAST_UPDATE_MANHWA: any = null;
+        let current_date = new Date();
 
-    await last_manhwa_updated(DefaultManhwa.Source)
-    .then(data => {
-        if (data !== null) 
-            {
-                LAST_UPDATE_MANHWA = data;
+        await last_manhwa_updated(DefaultManhwa.Source)
+        .then(data => {
+            if (data !== null) 
+                {
+                    LAST_UPDATE_MANHWA = data;
+                }
             }
-        }
-    )
-    
-    while (manhwa_not_updated) {
-        await axios.get(`https://toonily.com/search/page/${page}/?m_orderby=latest`)
-        .then(res => { dom = parser.parseFromString(res.data) })
-        .catch(error => console.log(error))
+        )
         
-        manhwas = dom.getElementsByClassName('page-item-detail');
+        while (manhwa_not_updated) {
+            await axios.get(`https://toonily.com/search/page/${page}/?m_orderby=latest`)
+            .then(res => { dom = parser.parseFromString(res.data) })
+            .catch(error => reject(error))
+            
+            manhwas = dom.getElementsByClassName('page-item-detail');
 
-        if (manhwas.length === 0)
-            break
-        while (manhwas.length !== i && manhwa_not_updated) {
-            manhwa = parser.parseFromString(manhwas[i].innerHTML);
-            let data: ManhwaT = DefaultManhwa; 
-            current_date.setSeconds(current_date.getSeconds() - (page+1))
-    
-            await toonily_data_update(manhwa,current_date)
-            .then(update_data => data = update_data)
-            .catch(err => console.log("ERROR IN RETRIEVING DATA FROM FUNCTION FLAME_GET_DATA"))
-            // console.log(data.name,"---", LAST_UPDATE_MANHWA_NAME)
+            if (manhwas.length === 0)
+                break
+            while (manhwas.length !== i && manhwa_not_updated) {
+                manhwa = parser.parseFromString(manhwas[i].innerHTML);
+                let data: ManhwaT = DefaultManhwa; 
+                current_date.setSeconds(current_date.getSeconds() - (page+1))
         
-            if (LAST_UPDATE_MANHWA !== null && data.Name === LAST_UPDATE_MANHWA.Name && data.Chapter == LAST_UPDATE_MANHWA.Chapter) {
-                manhwa_not_updated = false
-                break;
-            }   
+                await toonily_data_update(manhwa,current_date)
+                .then(update_data => data = update_data)
+                .catch(err => reject(err))
+                // console.log(data.name,"---", LAST_UPDATE_MANHWA_NAME)
+            
+                if (LAST_UPDATE_MANHWA !== null && data.Name === LAST_UPDATE_MANHWA.Name && data.Chapter == LAST_UPDATE_MANHWA.Chapter) {
+                    manhwa_not_updated = false
+                    break;
+                }   
 
-            await manhwa_update(data)
-            data.Genres = []
-            i += 1;
-        }
-        console.log("TOONILY",page,i)
-        i = 0;
-        page += 1;
-    }
+                await manhwa_update(data)
+                data.Genres = []
+                i += 1;
+            }
+            console.log("TOONILY",page,i)
+            i = 0;
+            page += 1;
+        }      
+        resolve(true)
+    })
 }
