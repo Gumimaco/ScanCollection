@@ -17,9 +17,9 @@ app.use(cors());
 const f = async () => {
     
     console.log('f Minute Update')
-    // await ASURA_COMICS_UPDATE();
-    // await FLAME_COMICS_UPDATE();
-    // await TOONILY_COMICS_UPDATE();
+    await ASURA_COMICS_UPDATE();
+    await FLAME_COMICS_UPDATE();
+    await TOONILY_COMICS_UPDATE();
     await REAPER_COMICS_UPDATE();
 }
 f()

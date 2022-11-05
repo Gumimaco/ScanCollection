@@ -17,18 +17,15 @@ const time_convert = (time: string, constant: number): string => {
     switch(period) {
         case 'second':
         case 'seconds':
-            console.log('seconds switch')
             now.setSeconds(now.getSeconds() - amount_of_time)
             break;
         case 'minute':
         case 'minutes':
-            console.log('minutes switch')
             now.setMinutes(now.getMinutes() - amount_of_time)
             now.setSeconds(now.getSeconds() - constant);
             break;
         case 'hour':
         case 'hours':
-            console.log('hours switch')
             now.setHours(now.getHours() - amount_of_time)
             now.setSeconds(now.getSeconds() - constant);
             break;
@@ -104,13 +101,14 @@ export const reaper_update = async () => {
         .catch(error => console.log(error))
         
         manhwas = dom.getElementsByClassName('grid');
-        if (manhwas.length === 0)
-            break
         manhwas = manhwas[0].getElementsByClassName('transition');
-        console.log("MANHWA AMOUNT: ",manhwas.length);
+        if (manhwas.length === 0) {
+            manhwa_not_updated = false;
+            break
+        }
+
         while (manhwas.length !== i && manhwa_not_updated) {
             const manhwaCalls = await limiter.removeTokens(1);
-            // console.log(i,manhwas.length);
             manhwa = manhwas[i];
             let data: ManhwaT = DefaultManhwa; 
 
@@ -122,13 +120,13 @@ export const reaper_update = async () => {
                 manhwa_not_updated = false
                 break;
             }
-
+            console.log(data.Name);
             await manhwa_update(data)
             data.Genres = []
             i += 1;
         }
 
-        // console.log("REAPER",page,i)
+        console.log("REAPER",page,i)
         i = 0;
         page += 1;
     }
