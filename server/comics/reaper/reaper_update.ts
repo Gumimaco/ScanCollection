@@ -116,6 +116,7 @@ export const reaper_update = async () => {
             .then(update_data => data = update_data)
             .catch(err => console.log("ERROR IN RETRIEVING DATA FROM FUNCTION REAPER_GET_DATA"))
             time_constant += 10;
+
             if (LAST_UPDATE_MANHWA !== null && data.Name === LAST_UPDATE_MANHWA.Name && data.Chapter == LAST_UPDATE_MANHWA.Chapter) {
                 manhwa_not_updated = false
                 break;
