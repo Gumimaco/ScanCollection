@@ -1,14 +1,10 @@
 {
   "dependencies": {
     "axios": "^0.27.2",
-    "cloudscraper": "^4.6.0",
-    "cors": "^2.8.5",
     "dom-parser": "^0.1.6",
     "express": "^4.18.1",
     "limiter": "^2.1.0",
-    "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
-    "node-horseman": "^3.3.0",
     "puppeteer": "^19.2.2",
     "typescript": "^4.9.3"
   },
