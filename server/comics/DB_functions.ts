@@ -94,13 +94,13 @@ export const get_all_genres = (): Promise<{Name: string,Source: string,Genre: st
 const generate_query_for_genres = (Genres: Array<string> | undefined) => {
     if (typeof(Genres) === "string") {
         console.log("HERE")
-        return `SELECT Name,Source FROM sys.genresDB WHERE Genre IN ("${Genres}") GROUP BY Name,Source HAVING COUNT(Name) = 1`
+        return `SELECT Name,Source FROM genresDB WHERE Genre IN ("${Genres}") GROUP BY Name,Source HAVING COUNT(Name) = 1`
     }
     Genres = Genres?.map(val => {return `"${val}"`})
     if (typeof(Genres) === 'undefined' || Genres.length === 0 || Genres[0] === "") {
-        return `SELECT Name,Source FROM sys.genresDB GROUP BY Name,Source`
+        return `SELECT Name,Source FROM genresDB GROUP BY Name,Source`
     }
-    return `SELECT Name,Source FROM sys.genresDB WHERE Genre IN (${Genres.join(',')}) GROUP BY Name,Source HAVING COUNT(Name) = ${Genres.length}`
+    return `SELECT Name,Source FROM genresDB WHERE Genre IN (${Genres.join(',')}) GROUP BY Name,Source HAVING COUNT(Name) = ${Genres.length}`
 }
 const generate_query_for_where = (queries) => {
     let params: string[] = []
@@ -147,7 +147,7 @@ export const THE_QUERY_RESOLVER = (QUERY_PARAMS: {Page?: string,Sort?: string,Ge
         const where_filter = generate_query_for_where(QUERY_PARAMS);
         const order_filter = generate_query_for_order(QUERY_PARAMS['Sort']);
         const limit_filter = generate_query_for_limit(QUERY_PARAMS['Page']);
-        let final_query = `SELECT * FROM (SELECT m.Name,m.Link,m.Image,m.Rating,m.Chapter,m.Modified,m.Status,m.Source FROM sys.manhwaDB m JOIN (${genre_filter}) g ON m.Name = g.Name AND m.Source = g.Source) a ${where_filter} ${order_filter} ${limit_filter}`;
+        let final_query = `SELECT * FROM (SELECT m.Name,m.Link,m.Image,m.Rating,m.Chapter,m.Modified,m.Status,m.Source FROM manhwaDB m JOIN (${genre_filter}) g ON m.Name = g.Name AND m.Source = g.Source) a ${where_filter} ${order_filter} ${limit_filter}`;
         console.log(final_query)
         mySQL.query(final_query,(err,res) => {
             if (err)

@@ -103,7 +103,7 @@ const nitro_update = (manhwa,seconds): Promise<ManhwaT> => {
         .then(res => release = parser.parseFromString(res.data))
         .catch(error => console.log(data.Link, "error while going to the link"))
         
-        data.Status = release.getElementsByClassName('post-content_item')[8].getElementsByClassName('summary-content')[0].innerHTML;
+        data.Status = release.getElementsByClassName('summary-content')[8].innerHTML;
         let genres = release.getElementsByClassName('post-content_item')[5]
         if (genres.length !== 0) {
             genres.getElementsByTagName('a').forEach(manhwa =>{
