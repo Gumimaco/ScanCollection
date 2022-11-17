@@ -13,7 +13,7 @@
     "zombie": "^6.1.4"
   },
   "scripts": {
-    "build": "npm build",
+    "build": "npm run build",
     "start": "node server.js"
   }
 }
