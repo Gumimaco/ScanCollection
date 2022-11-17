@@ -4,10 +4,11 @@ import { toonily_update as TOONILY_COMICS_UPDATE } from './comics/toonily/toonil
 import { reaper_update as REAPER_COMICS_UPDATE } from './comics/reaper/reaper_update';
 import { nitro_manhwa as NITRO_MANHWA_UPDATE } from './comics/nitro/nitro_manhwa'
 import { nitro_manhua as NITRO_MANHUA_UPDATE } from './comics/nitro/nitro_manhua'
+import { router as manhwa } from './routes/manhwa'
+
 const express = require("express")
 const path = require("path")
 const cors = require('cors')
-const manhwa = require('./routes/manhwa')
 
 const PORT = process.env.PORT || 5001;
 const HALF_HOUR_MS: number = 1800000;
@@ -30,7 +31,7 @@ const f = async () => {
     
     NITRO_MANHWA_UPDATE();
     NITRO_MANHUA_UPDATE();
-    
+
     // await REAPER_COMICS_UPDATE()
     // .then(r => console.log('succesfull reaper_scans'))
     // .catch(error => console.log('error reaper_scans',error));

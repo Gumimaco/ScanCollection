@@ -1,7 +1,7 @@
 import { get_page_sort_by_modified, get_all_manhwas, get_all_genres, THE_QUERY_RESOLVER } from '../comics/DB_functions'
 import { ManhwaT } from '../comics/Types'
 const {Router} = require('express')
-const router = Router()
+export const router = Router()
 
 router.get('/all',async (req,res) => {
     let data_obj: {manhwas: ManhwaT[],genres: {Name:string,Source:string,Genre:string}[]}= {
@@ -28,6 +28,3 @@ router.get('/?',async (req,res) => {
     .catch(error => res.send("ERROR FROM QUERY"))
     
 })
-
-
-module.exports = router
