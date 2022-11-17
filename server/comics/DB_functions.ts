@@ -1,6 +1,4 @@
-var mySQL = require('../mysqlPool.js');
-import axios from "axios";
-import { stringify } from "querystring";
+import { pool as mySQL } from '../mysqlPool.js';
 import { ManhwaT } from "./Types";
 
 export const manhwa_insert = (data: ManhwaT) => {
