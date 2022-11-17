@@ -76,6 +76,7 @@ const reaper_data_update = async (manhwa,c): Promise<ManhwaT> => {
 export const reaper_update = async () => {
     
     const limiter = new RateLimiter({ tokensPerInterval: 1, interval: 1250 });
+    let config =  { "headers": { "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9","accept-language": "en-GB,en-US;q=0.9,en;q=0.8", "cache-control": "max-age=0"}};
     DefaultManhwa.Source = 'Reaperscans'
     let dom!: HTMLElement;
     let manhwa: HTMLElement | any;
@@ -96,9 +97,9 @@ export const reaper_update = async () => {
     .catch(err => console.log("LASTTTTT"))
 
     while (manhwa_not_updated) {
-        await axios.get(`https://reaperscans.com/latest/comics?page=${page}`)
+        await axios.get(`https://reaperscans.com/latest/comics?page=${page}`,config)
         .then(res => { dom = parser.parseFromString(res.data) })
-        .catch(error => console.log(error))
+        .catch(error => console.log("weird error when getting page",error))
         
         manhwas = dom.getElementsByClassName('grid');
         manhwas = manhwas[0].getElementsByClassName('transition');

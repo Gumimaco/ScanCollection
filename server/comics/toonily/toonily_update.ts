@@ -128,7 +128,6 @@ export const toonily_update = async () => {
                 data.Genres = []
                 i += 1;
             }
-            console.log("TOONILY",page,i)
             i = 0;
             page += 1;
         }      

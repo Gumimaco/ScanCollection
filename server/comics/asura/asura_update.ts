@@ -82,8 +82,6 @@ export const asura_update = async () => {
                 data.Genres = []
                 i += 1;
             }
-
-            console.log("ASURA",page,i)
             i = 0;
             page += 1;
         }
