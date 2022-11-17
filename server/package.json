@@ -17,7 +17,7 @@
     "zombie": "^6.1.4"
   },
   "scripts": {
-    "build": "rm ./node_modules/puppeteer/lib/types.d.ts && tsc ./server.ts",
+    "build": "rm ./node_modules/@types/node/globals.d.ts && rm ./node_modules/puppeteer/lib/types.d.ts && tsc ./server.ts",
     "start": "node server.js"
   }
 }
