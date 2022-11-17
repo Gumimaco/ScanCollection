@@ -1,4 +1,4 @@
-import { pool as mySQL } from '../mysqlPool.js';
+var mySQL = require('../mysqlPool.js');
 import { ManhwaT } from "./Types";
 
 export const manhwa_insert = (data: ManhwaT) => {
