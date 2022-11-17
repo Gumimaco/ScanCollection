@@ -142,7 +142,7 @@ export const nitro_manhua = async () => {
         .catch(err => resolve(true))
         
 
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({args: ['--no-sandbox']});
         const w_page = await browser.newPage();
 
         await w_page.goto('https://nitroscans.com/manga-genre/manhua/?m_orderby=latest');

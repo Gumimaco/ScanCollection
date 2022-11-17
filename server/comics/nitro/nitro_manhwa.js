@@ -176,7 +176,7 @@ var nitro_manhwa = function () { return __awaiter(void 0, void 0, void 0, functi
                                 })["catch"](function (err) { return resolve(true); })];
                         case 1:
                             _a.sent();
-                            return [4 /*yield*/, puppeteer_1["default"].launch()];
+                            return [4 /*yield*/, puppeteer_1["default"].launch({ args: ['--no-sandbox'] })];
                         case 2:
                             browser = _a.sent();
                             return [4 /*yield*/, browser.newPage()];
