@@ -9,13 +9,14 @@
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "node-horseman": "^3.3.0",
-    "puppeteer": "^19.2.2"
+    "puppeteer": "^19.2.2",
+    "typescript": "^4.9.3"
   },
   "devDependencies": {
     "@types/node": "^18.7.16",
     "zombie": "^6.1.4"
   },
-  "scripts" : {
-    "start":"node server.js"
+  "scripts": {
+    "start": "node server.js"
   }
 }
