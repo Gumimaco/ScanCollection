@@ -64,8 +64,14 @@ var f = function () { return __awaiter(void 0, void 0, void 0, function () {
                         .then(function (r) { return console.log('succesfull toonily_update'); })["catch"](function (error) { return console.log('error toonily_update', error); })];
             case 2:
                 _a.sent();
-                (0, nitro_manhwa_1.nitro_manhwa)();
-                (0, nitro_manhua_1.nitro_manhua)();
+                return [4 /*yield*/, (0, nitro_manhwa_1.nitro_manhwa)()
+                        .then(function (r) { return console.log("Nitro_Manhwa_ended"); })["catch"](function (error) { return console.log('error toonily_update', error); })];
+            case 3:
+                _a.sent();
+                return [4 /*yield*/, (0, nitro_manhua_1.nitro_manhua)()
+                        .then(function (r) { return console.log("Nitro_Manhua_ended"); })["catch"](function (error) { return console.log('error toonily_update', error); })];
+            case 4:
+                _a.sent();
                 return [2 /*return*/];
         }
     });
