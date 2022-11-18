@@ -31,15 +31,14 @@ const f = async () => {
     .catch(error => console.log('error toonily_update',error));
     
     
-    NITRO_MANHWA_UPDATE();
-    NITRO_MANHUA_UPDATE();
-
-    // await REAPER_COMICS_UPDATE()
-    // .then(r => console.log('succesfull reaper_scans'))
-    // .catch(error => console.log('error reaper_scans',error));
-    // await FLAME_COMICS_UPDATE()
-    // .then(r => console.log('succesfull flame_update'))
-    // .catch(error => console.log('error flame_update',error));
+    await NITRO_MANHWA_UPDATE()
+    .then(r => console.log("Nitro_Manhwa_ended"))
+    .catch(error => console.log('error toonily_update',error));
+    
+    await NITRO_MANHUA_UPDATE()
+    .then(r => console.log("Nitro_Manhua_ended"))
+    .catch(error => console.log('error toonily_update',error));
+    
 }
 f()
 

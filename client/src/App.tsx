@@ -15,7 +15,7 @@ const App: React.FC = () => {
     const [manhwaDB, setmanhwaDB] = useState<{manhwas: ManhwaT[],genres: GenreT[] }>()
 
     useLayoutEffect(() => {
-        axios.get('http://localhost:5001/manhwa/all')
+        axios.get('https://scancollection-production.up.railway.app/manhwa/all')
         .then(response => {
             setmanhwaDB(response.data)
         })
