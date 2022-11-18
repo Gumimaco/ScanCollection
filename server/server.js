@@ -49,7 +49,7 @@ var HALF_HOUR_MS = 1800000;
 var DAY_MS = 86400000;
 var app = express();
 app.use(cors({
-    origin: 'https://scan-collection.vercel.app/'
+    origin: 'https://scan-collection.vercel.app'
 }));
 var f = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {

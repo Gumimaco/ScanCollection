@@ -15,7 +15,7 @@ const DAY_MS: number = 86400000;
 const app = express();
 
 app.use(cors({
-    origin: 'https://scan-collection.vercel.app/'
+    origin: 'https://scan-collection.vercel.app'
 }));
 
 const f = async () => {
