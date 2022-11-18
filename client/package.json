@@ -22,8 +22,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build:css": "tailwind build ./styles/indexStyle.css -o ./styles/tailwind.css",
-    "build": "tailwind build ./styles/indexStyle.css -o ./styles/tailwind.css && react-scripts build",
+    "build:css": "tailwind build ./src/styles/indexStyle.css -o ./src/styles/tailwind.css",
+    "build": "tailwind build ./src/styles/indexStyle.css -o ./src/styles/tailwind.css && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
