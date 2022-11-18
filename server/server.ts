@@ -7,11 +7,16 @@ import { nitro_manhua as NITRO_MANHUA_UPDATE } from './comics/nitro/nitro_manhua
 import { router as manhwa } from './routes/manhwa'
 
 const express = require("express")
+const cors = require('cors');
 
 const PORT = process.env.PORT || 5001;
 const HALF_HOUR_MS: number = 1800000;
 const DAY_MS: number = 86400000;
 const app = express();
+
+app.use(cors({
+    origin: 'https://scan-collection.vercel.app/'
+}));
 
 const f = async () => {
     

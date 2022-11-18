@@ -43,10 +43,14 @@ var nitro_manhwa_1 = require("./comics/nitro/nitro_manhwa");
 var nitro_manhua_1 = require("./comics/nitro/nitro_manhua");
 var manhwa_1 = require("./routes/manhwa");
 var express = require("express");
+var cors = require('cors');
 var PORT = process.env.PORT || 5001;
 var HALF_HOUR_MS = 1800000;
 var DAY_MS = 86400000;
 var app = express();
+app.use(cors({
+    origin: 'https://scan-collection.vercel.app/'
+}));
 var f = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
