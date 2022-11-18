@@ -26,18 +26,18 @@ const f = async () => {
     .then(r => console.log('succesfull asura_update'))
     .catch(error => console.log('error asura_update',error));
     
-    await TOONILY_COMICS_UPDATE()
-    .then(r => console.log('succesfull toonily_update'))
-    .catch(error => console.log('error toonily_update',error));
+    // await TOONILY_COMICS_UPDATE()
+    // .then(r => console.log('succesfull toonily_update'))
+    // .catch(error => console.log('error toonily_update',error));
     
     
-    await NITRO_MANHWA_UPDATE()
-    .then(r => console.log("Nitro_Manhwa_ended"))
-    .catch(error => console.log('error toonily_update',error));
+    // await NITRO_MANHWA_UPDATE()
+    // .then(r => console.log("Nitro_Manhwa_ended"))
+    // .catch(error => console.log('error toonily_update',error));
     
-    await NITRO_MANHUA_UPDATE()
-    .then(r => console.log("Nitro_Manhua_ended"))
-    .catch(error => console.log('error toonily_update',error));
+    // await NITRO_MANHUA_UPDATE()
+    // .then(r => console.log("Nitro_Manhua_ended"))
+    // .catch(error => console.log('error toonily_update',error));
     
 }
 f()
