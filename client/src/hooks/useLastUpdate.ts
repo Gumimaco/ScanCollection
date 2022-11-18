@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { ManhwaT } from "../../../server/comics/Types"
+import { ManhwaT } from '../../Types';
 const axios = require('axios')
 
 export const useLastUpdate = (page: number, increment_load: () => void ) => {

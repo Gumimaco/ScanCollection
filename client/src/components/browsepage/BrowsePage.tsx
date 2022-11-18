@@ -48,7 +48,7 @@ export const BrowsePage: React.FC<BrowsePageProps> = ({}) => {
             }
         }
         setParamsOnLoad({...params})
-        axios.get(`http://localhost:5001/manhwa/${generate_query_URL()}`)
+        axios.get(`https://scancollection-production.up.railway.app/manhwa/${generate_query_URL()}`)
         .then(manhwas => setMANHWAS_TO_DISPLAY(manhwas.data))
         .catch(error => console.error('got error while getting manhwas from query'))
         console.log("RERENDER")

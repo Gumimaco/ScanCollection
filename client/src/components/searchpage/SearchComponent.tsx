@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect, useRef } from 'react'
-import { ManhwaT,GenreT } from '../../../../server/comics/Types'
+import { ManhwaT,GenreT } from '../../../Types';
 import { SearchResult } from './SearchResult'
 
 interface SearchComponentProps {

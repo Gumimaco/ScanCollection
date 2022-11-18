@@ -1,6 +1,6 @@
 import React, {useState,useLayoutEffect} from 'react'
 import { SearchComponent } from '../searchpage/SearchComponent';
-import { ManhwaT, GenreT } from '../../../../server/comics/Types';
+import { ManhwaT, GenreT } from '../../../Types';
 import { Manhwashowcase } from './Manhwashowcase';
 
 const axios = require('axios')
@@ -12,7 +12,7 @@ export const DefaultPage: React.FC = () => {
 
     
     useLayoutEffect(() => {
-        axios.get(`http://localhost:5001/manhwa/?page=${1}`)
+        axios.get(`https://scancollection-production.up.railway.app/manhwa/?page=${1}`)
         .then(response => {
             setData(response.data);
             console.log(response.data)
@@ -20,7 +20,7 @@ export const DefaultPage: React.FC = () => {
         })
         .catch(error => console.error(error))
 
-        axios.get('http://localhost:5001/manhwa/all')
+        axios.get('https://scancollection-production.up.railway.app/manhwa/all')
         .then(response => {
             setSearchData(response.data)
             // setLoading(Loading+60)

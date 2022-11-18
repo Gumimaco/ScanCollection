@@ -1,5 +1,5 @@
 import React from 'react'
-import { ManhwaT } from '../../../../server/comics/Types'
+import { ManhwaT } from '../../../Types';
 import moment from 'moment'
 interface SearchResultProps {
     data: ManhwaT
