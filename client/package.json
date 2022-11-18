@@ -23,7 +23,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build:css": "tailwind build ./styles/indexStyle.css -o ./styles/tailwind.css",
-    "build": "react-scripts build",
+    "build": "tailwind build ./styles/indexStyle.css -o ./styles/tailwind.css && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -45,7 +45,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5001",
   "devDependencies": {
     "autoprefixer": "^10.4.12",
     "postcss": "^8.4.17"
