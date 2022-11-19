@@ -74,7 +74,8 @@ export const asura_update = async () => {
                 await asura_data_update(manhwa)
                 .then(update_data => data = update_data)
                 .catch(err => reject(err))
-
+                
+                console.log("CURRENT MANHWA: ",data);
                 if (LAST_UPDATE_MANHWA !== null && data.Name === LAST_UPDATE_MANHWA.Name && data.Chapter === LAST_UPDATE_MANHWA.Chapter) {
                     manhwa_not_updated = false
                     break;
