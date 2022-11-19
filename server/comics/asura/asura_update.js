@@ -118,6 +118,7 @@ var asura_update = function () { return __awaiter(void 0, void 0, void 0, functi
                                                     .then(function (update_data) { return data = update_data; })["catch"](function (err) { return reject(err); })];
                                         case 1:
                                             _b.sent();
+                                            console.log("CURRENT MANHWA: ", data);
                                             if (LAST_UPDATE_MANHWA !== null && data.Name === LAST_UPDATE_MANHWA.Name && data.Chapter === LAST_UPDATE_MANHWA.Chapter) {
                                                 manhwa_not_updated = false;
                                                 return [2 /*return*/, "break"];
