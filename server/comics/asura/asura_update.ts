@@ -57,6 +57,8 @@ export const asura_update = async () => {
         )
         .catch(err => resolve(true))
         
+        console.log("LAST UPDATED ASURA: ",LAST_UPDATE_MANHWA);
+
         while (manhwa_not_updated) {
             await axios.get(`https://www.asurascans.com/manga/?page=${page}&status=&type=&order=update`)
             .then(res => { dom = parser.parseFromString(res.data) })
@@ -73,7 +75,7 @@ export const asura_update = async () => {
                 .then(update_data => data = update_data)
                 .catch(err => reject(err))
 
-                if (LAST_UPDATE_MANHWA !== null && data.Name === LAST_UPDATE_MANHWA.Name && data.Chapter == LAST_UPDATE_MANHWA.Chapter) {
+                if (LAST_UPDATE_MANHWA !== null && data.Name === LAST_UPDATE_MANHWA.Name && data.Chapter === LAST_UPDATE_MANHWA.Chapter) {
                     manhwa_not_updated = false
                     break;
                 }

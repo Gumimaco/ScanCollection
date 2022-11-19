@@ -96,6 +96,7 @@ var asura_update = function () { return __awaiter(void 0, void 0, void 0, functi
                                 })["catch"](function (err) { return resolve(true); })];
                         case 1:
                             _a.sent();
+                            console.log("LAST UPDATED ASURA: ", LAST_UPDATE_MANHWA);
                             _a.label = 2;
                         case 2:
                             if (!manhwa_not_updated) return [3 /*break*/, 7];
@@ -117,7 +118,7 @@ var asura_update = function () { return __awaiter(void 0, void 0, void 0, functi
                                                     .then(function (update_data) { return data = update_data; })["catch"](function (err) { return reject(err); })];
                                         case 1:
                                             _b.sent();
-                                            if (LAST_UPDATE_MANHWA !== null && data.Name === LAST_UPDATE_MANHWA.Name && data.Chapter == LAST_UPDATE_MANHWA.Chapter) {
+                                            if (LAST_UPDATE_MANHWA !== null && data.Name === LAST_UPDATE_MANHWA.Name && data.Chapter === LAST_UPDATE_MANHWA.Chapter) {
                                                 manhwa_not_updated = false;
                                                 return [2 /*return*/, "break"];
                                             }

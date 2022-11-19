@@ -6,6 +6,10 @@ var pool = mysql.createPool({
   password: 'UPPMN5e5l4lByVyldnfd',
   database: 'railway',
   port: 5819,
+  // host: 'localhost',
+  // user: 'root',
+  // password: 'password',
+  // database: 'sys',
 });
 
 pool.getConnection((err,connection)=> {
