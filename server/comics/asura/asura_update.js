@@ -48,7 +48,7 @@ var asura_data_update = function (manhwa) { return __awaiter(void 0, void 0, voi
         switch (_a.label) {
             case 0:
                 data = Types_1.DefaultManhwa;
-                data.Name = manhwa.getElementsByTagName('a')[0].attributes[1].value;
+                data.Name = manhwa.getElementsByTagName('a')[0].attributes[1].value.replace(/&#8217;/g, "'");
                 data.Link = manhwa.getElementsByTagName('a')[0].attributes[0].value;
                 data.Image = manhwa.getElementsByTagName('img')[0].attributes[0].value;
                 return [4 /*yield*/, axios.get(manhwa.getElementsByTagName('a')[0].attributes[0].value)
@@ -96,7 +96,6 @@ var asura_update = function () { return __awaiter(void 0, void 0, void 0, functi
                                 })["catch"](function (err) { return resolve(true); })];
                         case 1:
                             _a.sent();
-                            console.log("LAST UPDATED ASURA: ", LAST_UPDATE_MANHWA);
                             _a.label = 2;
                         case 2:
                             if (!manhwa_not_updated) return [3 /*break*/, 7];
@@ -118,7 +117,6 @@ var asura_update = function () { return __awaiter(void 0, void 0, void 0, functi
                                                     .then(function (update_data) { return data = update_data; })["catch"](function (err) { return reject(err); })];
                                         case 1:
                                             _b.sent();
-                                            console.log("CURRENT MANHWA: ", data);
                                             if (LAST_UPDATE_MANHWA !== null && data.Name === LAST_UPDATE_MANHWA.Name && data.Chapter === Number(LAST_UPDATE_MANHWA.Chapter)) {
                                                 manhwa_not_updated = false;
                                                 return [2 /*return*/, "break"];

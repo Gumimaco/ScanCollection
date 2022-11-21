@@ -82,7 +82,7 @@ const nitro_update = (manhwa,seconds): Promise<ManhwaT> => {
             reject(false);
             return;
         }
-        data.Name = manhwa.getElementsByTagName('a')[0].attributes[1].value;
+        data.Name = manhwa.getElementsByTagName('a')[0].attributes[1].value.replace(/&#8217;/g, "'");
         data.Link = manhwa.getElementsByTagName('a')[0].attributes[0].value;
         data.Image = manhwa.getElementsByTagName('img')[0].attributes[2].value;
 
@@ -174,7 +174,7 @@ export const nitro_manhwa = async () => {
                     console.log("SKIPPING",i)
                     continue;
                 }
-                if (LAST_UPDATE_MANHWA !== null && data.Name === LAST_UPDATE_MANHWA.Name && data.Chapter == LAST_UPDATE_MANHWA.Chapter) {
+                if (LAST_UPDATE_MANHWA !== null && data.Name === LAST_UPDATE_MANHWA.Name && data.Chapter === Number(LAST_UPDATE_MANHWA.Chapter)) {
                     manhwa_not_updated = false
                     break;
                 }

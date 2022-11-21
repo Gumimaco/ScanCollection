@@ -64,7 +64,7 @@ var toonily_data_update = function (manhwa, date) {
             switch (_a.label) {
                 case 0:
                     data = Types_1.DefaultManhwa;
-                    data.Name = manhwa.getElementsByTagName('a')[0].attributes[1].value;
+                    data.Name = manhwa.getElementsByTagName('a')[0].attributes[1].value.replace(/&#8217;/g, "'");
                     data.Link = manhwa.getElementsByTagName('a')[0].attributes[0].value;
                     data.Image = manhwa.getElementsByTagName('a')[0].childNodes[1].attributes[2].value;
                     return [4 /*yield*/, axios.get(manhwa.getElementsByTagName('a')[0].attributes[0].value)

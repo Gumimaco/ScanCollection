@@ -119,7 +119,7 @@ var nitro_update = function (manhwa, seconds) {
                         reject(false);
                         return [2 /*return*/];
                     }
-                    data.Name = manhwa.getElementsByTagName('a')[0].attributes[1].value;
+                    data.Name = manhwa.getElementsByTagName('a')[0].attributes[1].value.replace(/&#8217;/g, "'");
                     data.Link = manhwa.getElementsByTagName('a')[0].attributes[0].value;
                     data.Image = manhwa.getElementsByTagName('img')[0].attributes[2].value;
                     last_chapter = manhwa.getElementsByClassName('chapter-item')[0];
@@ -214,7 +214,7 @@ var nitro_manhwa = function () { return __awaiter(void 0, void 0, void 0, functi
                                                 console.log("SKIPPING", i);
                                                 return [2 /*return*/, "continue"];
                                             }
-                                            if (LAST_UPDATE_MANHWA !== null && data.Name === LAST_UPDATE_MANHWA.Name && data.Chapter == LAST_UPDATE_MANHWA.Chapter) {
+                                            if (LAST_UPDATE_MANHWA !== null && data.Name === LAST_UPDATE_MANHWA.Name && data.Chapter === Number(LAST_UPDATE_MANHWA.Chapter)) {
                                                 manhwa_not_updated = false;
                                                 return [2 /*return*/, "break"];
                                             }

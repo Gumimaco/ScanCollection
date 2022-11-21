@@ -22,7 +22,7 @@ const month_translate = {
 
 const toonily_data_update = async (manhwa,date = new Date()): Promise<ManhwaT> => {
     let data: ManhwaT = DefaultManhwa;
-    data.Name = manhwa.getElementsByTagName('a')[0].attributes[1].value;
+    data.Name = manhwa.getElementsByTagName('a')[0].attributes[1].value.replace(/&#8217;/g, "'");
     data.Link = manhwa.getElementsByTagName('a')[0].attributes[0].value;
     data.Image = manhwa.getElementsByTagName('a')[0].childNodes[1].attributes[2].value;
     let release;

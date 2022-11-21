@@ -32,13 +32,13 @@ const f = async () => {
     .catch(error => console.log('error toonily_update',error));
     
     
-    // await NITRO_MANHWA_UPDATE()
-    // .then(r => console.log("Nitro_Manhwa_ended"))
-    // .catch(error => console.log('error toonily_update',error));
+    await NITRO_MANHWA_UPDATE()
+    .then(r => console.log("Nitro_Manhwa_ended"))
+    .catch(error => console.log('error toonily_update',error));
     
-    // await NITRO_MANHUA_UPDATE()
-    // .then(r => console.log("Nitro_Manhua_ended"))
-    // .catch(error => console.log('error toonily_update',error));
+    await NITRO_MANHUA_UPDATE()
+    .then(r => console.log("Nitro_Manhua_ended"))
+    .catch(error => console.log('error toonily_update',error));
     
 }
 f()

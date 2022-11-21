@@ -6,7 +6,7 @@ const axios = require('axios')
 
 const asura_data_update = async (manhwa): Promise<ManhwaT> => {
     let data: ManhwaT = DefaultManhwa;
-    data.Name = manhwa.getElementsByTagName('a')[0].attributes[1].value;
+    data.Name = manhwa.getElementsByTagName('a')[0].attributes[1].value.replace(/&#8217;/g, "'");
     data.Link = manhwa.getElementsByTagName('a')[0].attributes[0].value;
     data.Image = manhwa.getElementsByTagName('img')[0].attributes[0].value;
 
@@ -57,7 +57,6 @@ export const asura_update = async () => {
         )
         .catch(err => resolve(true))
         
-        console.log("LAST UPDATED ASURA: ",LAST_UPDATE_MANHWA);
 
         while (manhwa_not_updated) {
             await axios.get(`https://www.asurascans.com/manga/?page=${page}&status=&type=&order=update`)
@@ -75,7 +74,6 @@ export const asura_update = async () => {
                 .then(update_data => data = update_data)
                 .catch(err => reject(err))
                 
-                console.log("CURRENT MANHWA: ",data);
                 if (LAST_UPDATE_MANHWA !== null && data.Name === LAST_UPDATE_MANHWA.Name && data.Chapter === Number(LAST_UPDATE_MANHWA.Chapter)) {
                     manhwa_not_updated = false
                     break;
