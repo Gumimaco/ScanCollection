@@ -47,6 +47,7 @@ var app = express();
 app.use(cors({
     origin: 'https://scan-collection.vercel.app'
 }));
+app.use(express.static('images'));
 var f = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {

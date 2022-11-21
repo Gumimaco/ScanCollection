@@ -17,6 +17,7 @@ const app = express();
 app.use(cors({
     origin: 'https://scan-collection.vercel.app'
 }));
+app.use(express.static('images'))
 
 const f = async () => {
     

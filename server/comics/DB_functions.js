@@ -38,8 +38,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.THE_QUERY_RESOLVER = exports.get_all_genres = exports.get_all_manhwas = exports.get_page_sort_by_modified = exports.last_manhwa_updated = exports.genre_insert = exports.manhwa_update = exports.find_match_on_Name_source = exports.update = exports.manhwa_insert = void 0;
 var mySQL = require('../mysqlPool.js');
+var fs = require('fs');
+var request = require('request');
+var download = function (uri, filename, callback) {
+    request.head(uri, function (err, res, body) {
+        request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+    });
+};
 var manhwa_insert = function (data) {
-    mySQL.query("INSERT IGNORE INTO manhwaDB VALUES (\"".concat(data.Name, "\",\"").concat(data.Link, "\",\"").concat(data.Image, "\",").concat(data.Rating, ",").concat(data.Chapter, ",\"").concat(data.Modified, "\",\"").concat(data.Status, "\",\"").concat(data.Source, "\");"), function (err, res) {
+    if (!fs.existsSync("./images/".concat(data.Source))) {
+        fs.mkdirSync("./images/".concat(data.Source), { recursive: true });
+    }
+    download(data.Image, "./images/".concat(data.Source, "/").concat(data.Name.replace(/\s/g, ''), ".png"), function () { console.log("downloaded"); });
+    mySQL.query("INSERT IGNORE INTO manhwaDB VALUES (\"".concat(data.Name, "\",\"").concat(data.Link, "\",\"").concat(data.Source, "/").concat(data.Name.replace(/\s/g, ''), ".png\",").concat(data.Rating, ",").concat(data.Chapter, ",\"").concat(data.Modified, "\",\"").concat(data.Status, "\",\"").concat(data.Source, "\");"), function (err, res) {
         if (err)
             console.log("error while inserting manhwa", data);
     });

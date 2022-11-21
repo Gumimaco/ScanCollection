@@ -1,8 +1,21 @@
 var mySQL = require('../mysqlPool.js');
 import { ManhwaT } from "./Types";
+const fs = require('fs');
+let request = require('request');
+
+var download = function(uri, filename, callback){
+  request.head(uri, function(err, res, body){
+    request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+  });
+};
 
 export const manhwa_insert = (data: ManhwaT) => {
-    mySQL.query(`INSERT IGNORE INTO manhwaDB VALUES ("${data.Name}","${data.Link}","${data.Image}",${data.Rating},${data.Chapter},"${data.Modified}","${data.Status}","${data.Source}");`, (err,res) => {
+    if (!fs.existsSync(`./images/${data.Source}`)){
+        fs.mkdirSync(`./images/${data.Source}`, { recursive: true });
+    }
+    download(data.Image,`./images/${data.Source}/${data.Name.replace(/\s/g, '')}.png`,() => {console.log("downloaded")})
+
+    mySQL.query(`INSERT IGNORE INTO manhwaDB VALUES ("${data.Name}","${data.Link}","${data.Source}/${data.Name.replace(/\s/g, '')}.png",${data.Rating},${data.Chapter},"${data.Modified}","${data.Status}","${data.Source}");`, (err,res) => {
         if (err)
             console.log("error while inserting manhwa", data)
     })
