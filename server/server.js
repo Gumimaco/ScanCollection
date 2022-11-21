@@ -37,6 +37,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var asura_update_1 = require("./comics/asura/asura_update");
+// import { flame_update as FLAME_COMICS_UPDATE } from './comics/flame/flame_update';
+var toonily_update_1 = require("./comics/toonily/toonily_update");
 var manhwa_1 = require("./routes/manhwa");
 var express = require("express");
 var cors = require('cors');
@@ -56,6 +58,10 @@ var f = function () { return __awaiter(void 0, void 0, void 0, function () {
                 return [4 /*yield*/, (0, asura_update_1.asura_update)()
                         .then(function (r) { return console.log('succesfull asura_update'); })["catch"](function (error) { return console.log('error asura_update', error); })];
             case 1:
+                _a.sent();
+                return [4 /*yield*/, (0, toonily_update_1.toonily_update)()
+                        .then(function (r) { return console.log('succesfull toonily_update'); })["catch"](function (error) { return console.log('error toonily_update', error); })];
+            case 2:
                 _a.sent();
                 return [2 /*return*/];
         }

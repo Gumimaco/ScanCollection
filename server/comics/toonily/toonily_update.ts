@@ -119,7 +119,7 @@ export const toonily_update = async () => {
                 .catch(err => reject(err))
                 // console.log(data.name,"---", LAST_UPDATE_MANHWA_NAME)
             
-                if (LAST_UPDATE_MANHWA !== null && data.Name === LAST_UPDATE_MANHWA.Name && data.Chapter == LAST_UPDATE_MANHWA.Chapter) {
+                if (LAST_UPDATE_MANHWA !== null && data.Name === LAST_UPDATE_MANHWA.Name && data.Chapter == Number(LAST_UPDATE_MANHWA.Chapter)) {
                     manhwa_not_updated = false
                     break;
                 }   
