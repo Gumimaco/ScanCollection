@@ -71,7 +71,7 @@ var update = function (data) {
 exports.update = update;
 var find_match_on_Name_source = function (Name, source) {
     return new Promise(function (resolve, reject) {
-        mySQL.query("SELECT * FROM manhwaDB WHERE Name='".concat(Name, "' AND Source='").concat(source, "';"), function (err, res) {
+        mySQL.query("SELECT * FROM manhwaDB WHERE Name=\"".concat(Name, "\" AND Source=\"").concat(source, "\";"), function (err, res) {
             resolve((res.length === 0));
         });
     });
@@ -113,7 +113,7 @@ exports.genre_insert = genre_insert;
 var last_manhwa_updated = function (Source) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         return [2 /*return*/, new Promise(function (resolve, reject) {
-                mySQL.query("SELECT * FROM manhwaDB WHERE Source = '".concat(Source, "' ORDER BY Modified DESC;"), function (err, res) {
+                mySQL.query("SELECT * FROM manhwaDB WHERE Source = \"".concat(Source, "\" ORDER BY Modified DESC;"), function (err, res) {
                     if (err)
                         throw err;
                     if (res.length !== 0) {

@@ -35,7 +35,7 @@ export const update = (data) => {
 }
 export const find_match_on_Name_source = (Name,source): Promise<boolean> => {
     return new Promise((resolve,reject) => {
-        mySQL.query(`SELECT * FROM manhwaDB WHERE Name='${Name}' AND Source='${source}';`,(err,res) => {
+        mySQL.query(`SELECT * FROM manhwaDB WHERE Name="${Name}" AND Source="${source}";`,(err,res) => {
             resolve((res.length === 0))
         })
     })
@@ -64,7 +64,7 @@ export const genre_insert = (Name: string,Source: string,genre: string) => {
 
 export const last_manhwa_updated = async (Source: string): Promise<ManhwaT | null> => {
     return new Promise((resolve,reject) => {
-        mySQL.query(`SELECT * FROM manhwaDB WHERE Source = '${Source}' ORDER BY Modified DESC;`, (err,res) => {
+        mySQL.query(`SELECT * FROM manhwaDB WHERE Source = "${Source}" ORDER BY Modified DESC;`, (err,res) => {
             if (err)
                 throw err;
             if (res.length !== 0) {
