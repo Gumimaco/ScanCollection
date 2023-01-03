@@ -36,6 +36,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
+// import { flame_update as FLAME_COMICS_UPDATE } from './comics/flame/flame_update';
+var toonily_update_1 = require("./comics/toonily/toonily_update");
 var manhwa_1 = require("./routes/manhwa");
 var express = require("express");
 var cors = require('cors');
@@ -49,8 +51,21 @@ app.use(cors({
 app.use(express.static('images'));
 var f = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        console.log('f Minute Update');
-        return [2 /*return*/];
+        switch (_a.label) {
+            case 0:
+                console.log('f Minute Update');
+                // await ASURA_COMICS_UPDATE()
+                // .then(r => console.log('succesfull asura_update'))
+                // .catch(error => console.log('error asura_update',error));
+                return [4 /*yield*/, (0, toonily_update_1.toonily_update)()
+                        .then(function (r) { return console.log('succesfull toonily_update'); })["catch"](function (error) { return console.log('error toonily_update', error); })];
+            case 1:
+                // await ASURA_COMICS_UPDATE()
+                // .then(r => console.log('succesfull asura_update'))
+                // .catch(error => console.log('error asura_update',error));
+                _a.sent();
+                return [2 /*return*/];
+        }
     });
 }); };
 f();
