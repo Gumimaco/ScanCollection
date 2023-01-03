@@ -36,7 +36,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var asura_update_1 = require("./comics/asura/asura_update");
 var manhwa_1 = require("./routes/manhwa");
 var express = require("express");
 var cors = require('cors');
@@ -50,15 +49,8 @@ app.use(cors({
 app.use(express.static('images'));
 var f = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                console.log('f Minute Update');
-                return [4 /*yield*/, (0, asura_update_1.asura_update)()
-                        .then(function (r) { return console.log('succesfull asura_update'); })["catch"](function (error) { return console.log('error asura_update', error); })];
-            case 1:
-                _a.sent();
-                return [2 /*return*/];
-        }
+        console.log('f Minute Update');
+        return [2 /*return*/];
     });
 }); };
 f();
