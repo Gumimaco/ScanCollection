@@ -4,8 +4,14 @@ All your favorite manhwa scans in one place
 BUGS TO FIX: page not changing on query change,  able to select multiple filter params after refresh
 
 BE: railway with mySQL DB
+<br />
 FE: vercel
 https://scan-collection.vercel.app/
+</br >
+DEMO VIDEO
+</br >
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/Pgct61ezYas/0.jpg)](https://www.youtube.com/watch?v=Pgct61ezYas)
+</br>
 #STACK
 REACT,TS,NODEJS,EXPRESS,TAILWIND CSS,MYSQL, PUPPETTER
 
