@@ -51,10 +51,15 @@ var asura_data_update = function (manhwa) { return __awaiter(void 0, void 0, voi
                 data.Name = manhwa.getElementsByTagName('a')[0].attributes[1].value.replace(/&#8217;/g, "'");
                 data.Link = manhwa.getElementsByTagName('a')[0].attributes[0].value;
                 data.Image = manhwa.getElementsByTagName('img')[0].attributes[0].value;
+                _a.label = 1;
+            case 1:
+                if (!(release == undefined)) return [3 /*break*/, 3];
                 return [4 /*yield*/, axios.get(manhwa.getElementsByTagName('a')[0].attributes[0].value)
                         .then(function (res) { return release = parser.parseFromString(res.data); })["catch"](function (error) { return console.log("FAILED TO FETCH DATA FROM LINK IN ASURA_DATA_UPDATE"); })];
-            case 1:
+            case 2:
                 _a.sent();
+                return [3 /*break*/, 1];
+            case 3:
                 data.Status = release.getElementsByClassName('imptdt')[0].getElementsByTagName('i')[0].innerHTML;
                 if (typeof (data.Status) !== 'undefined') {
                     data.Modified = release.getElementsByTagName('time')[1].attributes[1].value;

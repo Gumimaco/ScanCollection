@@ -131,10 +131,15 @@ var nitro_update = function (manhwa, seconds) {
                     else {
                         data.Modified = date_convert(last_chapter.getElementsByClassName('post-on')[0].innerHTML, seconds);
                     }
+                    _a.label = 1;
+                case 1:
+                    if (!(release == undefined)) return [3 /*break*/, 3];
                     return [4 /*yield*/, axios.get(data.Link)
                             .then(function (res) { return release = parser.parseFromString(res.data); })["catch"](function (error) { return console.log(data.Link, "error while going to the link"); })];
-                case 1:
+                case 2:
                     _a.sent();
+                    return [3 /*break*/, 1];
+                case 3:
                     data.Status = release.getElementsByClassName('summary-content')[8].innerHTML;
                     genres = release.getElementsByClassName('post-content_item')[5];
                     if (genres.length !== 0) {
